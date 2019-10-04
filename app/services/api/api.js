@@ -2,40 +2,43 @@ import { create } from 'apisauce';
 import { APP_CONFIG } from '../../config';
 import * as Qs from 'qs';
 
-/**
- * Initialize the apisauce instance
- * @type {ApisauceInstance}
- * @private
- */
-const _apisauce = create({
-  baseURL: APP_CONFIG.iexcloudApiUrl,
-  timeout: 10000,
-  headers: {
-    Accept: 'application/json',
-  },
-  paramsSerializer: params => {
-    //formats the query strings in a way that the IEX service can interpret
-    return Qs.stringify(params, { arrayFormat: 'comma', encode: false });
-  },
-});
+class Api {
+  /**
+   * Initialize the apisauce instance
+   * @type {ApisauceInstance}
+   * @private
+   */
+  _api = create({
+    baseURL: APP_CONFIG.iexcloudApiUrl,
+    timeout: 10000,
+    headers: {
+      Accept: 'application/json',
+    },
+    paramsSerializer: params => {
+      //formats the query strings in a way that the IEX service can interpret
+      return Qs.stringify(params, { arrayFormat: 'comma', encode: false });
+    },
+  });
 
-/**
- * Transforms the request
- * @type {{data: object}}
- * @private
- */
-_apisauce.addRequestTransform(request => {
-  //format api key param for iexcloud support
-  request.params = {
-    ...request.params,
-    token: APP_CONFIG.iexcloudPublicKey,
+  constructor() {
+    this.setRequestTransformer();
+  }
+
+  /**
+   * Transforms the request
+   * @type {{data: object}}
+   * @private
+   */
+  setRequestTransformer = () => {
+    this._api.addRequestTransform(request => {
+      //format api key param for iexcloud support
+      request.params = {
+        ...request.params,
+        token: APP_CONFIG.iexcloudPublicKey,
+      };
+    });
   };
-});
 
-/**
- * Api object
- */
-export const Api = {
   /**
    * Gets multiple types of data for each symbol
    * @param {array} symbols company ticker symbols
@@ -44,12 +47,12 @@ export const Api = {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#batch-requests
    */
-  getBatch: async (symbols, types, options = null) =>
-    await _apisauce.get(`/stock/market/batch`, {
+  getBatch = async (symbols, types, options = null) =>
+    await this._api.get(`/stock/market/batch`, {
       symbols: symbols,
       types: types,
       ...options,
-    }),
+    });
 
   /**
    * Gets the quote data for a single symbol
@@ -58,8 +61,8 @@ export const Api = {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#quote
    */
-  getQuote: async (symbol, options = null) =>
-    await _apisauce.get(`/stock/${symbol}/quote`, { ...options }),
+  getQuote = async (symbol, options = null) =>
+    await this._api.get(`/stock/${symbol}/quote`, { ...options });
 
   /**
    * Gets the price for a single symbol
@@ -67,7 +70,7 @@ export const Api = {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#price
    */
-  getPrice: async symbol => await _apisauce.get(`/stock/${symbol}/price`),
+  getPrice = async symbol => await this._api.get(`/stock/${symbol}/price`);
 
   /**
    * Gets historical price data for a single symbol
@@ -77,8 +80,8 @@ export const Api = {
    * @return {Promise<ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#historical-prices
    */
-  getHistPrice: async (symbol, range, options = null) =>
-    await _apisauce.get(`/stock/${symbol}/chart/${range}`, { ...options }),
+  getHistPrice = async (symbol, range, options = null) =>
+    await this._api.get(`/stock/${symbol}/chart/${range}`, { ...options });
 
   /**
    * Gets historical price data for a single symbol for a specific date or date range
@@ -88,10 +91,10 @@ export const Api = {
    * @return {Promise<ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#historical-prices
    */
-  getHistPriceByDate: async (symbol, date, options = null) =>
-    await _apisauce.get(`/stock/${symbol}/chart/${range}/${date}`, {
+  getHistPriceByDate = async (symbol, date, options = null) =>
+    await this._api.get(`/stock/${symbol}/chart/${range}/${date}`, {
       ...options,
-    }),
+    });
 
   /**
    * Gets the intraday prices of a symbol. By default returns open, high, low & close per 1min data segments
@@ -100,8 +103,10 @@ export const Api = {
    * @return {Promise<ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#intraday-prices
    */
-  getIntradayPrice: async (symbol, options = null) =>
-    await _apisauce.get(`/stock/${symbol}/intraday-prices`, { ...options }),
+  getIntradayPrice = async (symbol, options = null) =>
+    await this._api.get(`/stock/${symbol}/intraday-prices`, {
+      ...options,
+    });
 
   /**
    * Gets the company info for a single symbol
@@ -109,7 +114,7 @@ export const Api = {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#company
    */
-  getCompany: async symbol => await _apisauce.get(`/stock/${symbol}/company`),
+  getCompany = async symbol => await this._api.get(`/stock/${symbol}/company`);
 
   /**
    * Gets an array of quotes for up to 10 symbols in a collection
@@ -117,8 +122,8 @@ export const Api = {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#collections
    */
-  getCollection: async collection =>
-    await _apisauce.get(`/stock/market/collection/${collection}`),
+  getCollection = async collection =>
+    await this._api.get(`/stock/market/collection/${collection}`);
 
   /**
    * Gets financial information for a single symbol
@@ -126,7 +131,7 @@ export const Api = {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#financials
    */
-  getFinancials: async symbol => await _apisauce.get(`/stock/${symbol}/quote`),
+  getFinancials = async symbol => await this._api.get(`/stock/${symbol}/quote`);
 
   /**
    * Gets the url to a png image of the logo for a single symbol
@@ -134,5 +139,9 @@ export const Api = {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#logo
    */
-  getLogo: async symbol => await _apisauce.get(`/stock/${symbol}/logo`),
-};
+  getLogo = async symbol => await this._api.get(`/stock/${symbol}/logo`);
+}
+
+const instance = new Api();
+
+export default instance;
