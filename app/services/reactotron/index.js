@@ -1,1 +1,2 @@
-export * from './reactron';
+import Reactotron from './reactotron';
+export default Reactotron;

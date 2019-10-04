@@ -3,8 +3,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {DEFAULT_REACTOTRON_CONFIG} from './reactotronConfig';
 
 class Reactotron {
-  static async setup() {
-    Tron.setAsyncStorageHandler(AsyncStorage)
+  /**
+   * Initializes reactotron instance
+   * @return {Promise<Reactotron<ReactotronSubtype> & ReactotronSubtype>}
+   */
+  init = async () => {
+    return Tron.setAsyncStorageHandler(AsyncStorage)
       .configure({
         ...DEFAULT_REACTOTRON_CONFIG,
       })
@@ -22,4 +26,6 @@ class Reactotron {
   }
 }
 
-export default Reactotron;
+const instance = new Reactotron();
+
+export default instance;
