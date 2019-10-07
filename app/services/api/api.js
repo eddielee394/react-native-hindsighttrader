@@ -36,6 +36,10 @@ class Api {
         close: data.close,
         closeTime: data.closeTime,
         high: data.high,
+        bidPrice: data.iexBidPrice ?? 0,
+        bidSize: data.iexBidSize ?? 0,
+        askPrice: data.iexAskPrice ?? 0,
+        askSize: data.iexAskSize ?? 0,
         low: data.low,
         latestPrice: data.latestPrice,
         latestSource: data.latestSource,
@@ -100,11 +104,11 @@ class Api {
    * Gets batched data for multiple symbols based on an array of data types to be returned.
    * @param {array} symbols company ticker symbols
    * @param {array} types data types to return chart|news|quote
-   * @param {number} options optional parameters
+   * @param {object|null} options optional parameters
    * @return {Promise<ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example getChartData('aapl','1d',30)
    */
-  getMarketBatchData = async (symbols, types, options) => {
+  getMarketBatchData = async (symbols, types, options = null) => {
     const response = await this.api.getMarketBatch(symbols, types, options);
 
     if (!response.ok) {
@@ -116,7 +120,19 @@ class Api {
       }
     }
 
-    return response;
+    const convertData = data => {
+      //TODO-EP validate the data
+      return data;
+    };
+
+    // transform the data into the format we are expecting
+    try {
+      // const rawData = _.values(response.data);
+      const data = convertData(response.data);
+      return { message: 'ok', data };
+    } catch {
+      return { message: 'bad-data', data: response.data };
+    }
   };
 
   /**

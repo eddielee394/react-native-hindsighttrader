@@ -3,6 +3,7 @@ Example stock market application utiliizing React Native
 
 ## Installation
 - Clone the repository
+- copy the `.env.example` file to `.env`
 - `yarn start`
 - `react-native run-android`
 - `yarn react-devtools` to display react-native devtools

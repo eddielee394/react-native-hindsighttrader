@@ -3,4 +3,5 @@ module.exports = {
   jsxBracketSameLine: true,
   singleQuote: true,
   trailingComma: 'all',
+  braceStyle: '1tbs',
 };
