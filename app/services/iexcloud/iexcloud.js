@@ -93,7 +93,7 @@ class Iexcloud {
    * @example https://www.iexcloud.io/docs/api/#quote
    */
   getQuote = (symbol, options = null) =>
-    this._api.get(`/stock/${symbol}/quotes`, {
+    this._api.get(`/stock/${symbol}/quote`, {
       ...options,
     });
 
