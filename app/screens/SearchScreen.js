@@ -1,19 +1,12 @@
 import React from 'react';
-import { Layout, withStyles, Text } from 'react-native-ui-kitten';
+import { Container, Text } from 'native-base';;
 
-const Search = props => {
-  const { style, themedStyle, ...restProps } = props;
-  
+const SearchScreen = props => {
   return (
-    <Layout style={[themedStyle.container]}>
+    <Container >
       <Text>SearchScreen</Text>
-    </Layout>
+    </Container>
   );
 };
 
-export const SearchScreen = withStyles(Search, theme => ({
-  container: {
-    flex: 1,
-    backgroundColor: theme['background-basic-color-2'],
-  },
-}));
+export default SearchScreen;

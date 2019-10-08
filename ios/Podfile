@@ -33,6 +33,7 @@ target 'hindsightTraderRN' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+
   target 'hindsightTraderRNTests' do
     inherit! :search_paths
     # Pods for testing
