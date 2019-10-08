@@ -1,16 +1,28 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { mapping } from '@eva-design/eva';
-import { ApplicationProvider, IconRegistry } from 'react-native-ui-kitten';
-import { StyleSheet, StatusBar } from 'react-native';
-import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { theme } from './theme';
-import { Router, Scene, Stack, Tabs } from 'react-native-router-flux'; //TODO move nav screens to global route component
+import getTheme from './theme/components';
+import theme from './theme';
+import { StatusBar, StyleSheet } from 'react-native';
+import {
+  Actions,
+  Lightbox,
+  Router,
+  Scene,
+  Stack,
+  Tabs,
+} from 'react-native-router-flux';
+//TODO move nav screens to global route component
 import Api from './services/api';
 import Toast from 'react-native-toast-native';
 import BottomNavigationContainer from './components/Navigation/BottomNavigationContainer';
-import { StockScreen } from './screens/StockScreen';
-import { SearchScreen } from './screens/SearchScreen';
-import { WatchlistScreen } from './screens/WatchlistScreen';
+import {
+  ComingSoonScreen,
+  LightBoxScreen,
+  NewsScreen,
+  SearchScreen,
+  StockScreen,
+  WatchlistScreen,
+} from './screens';
+import { Container, StyleProvider } from 'native-base';
 
 const renderToast = message => {
   return Toast.show(
@@ -43,20 +55,74 @@ const App = () => {
 
   return (
     <Fragment>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider mapping={mapping} theme={theme}>
-        <StatusBar barStyle="dark-content" />
-        <Router>
-          <Tabs
-            key="bottomNavigation"
-            tabBarComponent={BottomNavigationContainer}
-            headerMode="none">
-            <Scene key="watchlistScreen" component={WatchlistScreen} />
-            <Scene key="searchScreen" component={SearchScreen} />
-            <Scene key="stockScreen" component={StockScreen} />
-          </Tabs>
-        </Router>
-      </ApplicationProvider>
+      <StyleProvider style={getTheme(theme.dark)}>
+        <Container>
+          <StatusBar barStyle="dark-content" />
+          <Router>
+            <Lightbox key="comingSoonOverlay">
+              <Stack key="root" headerMode="none">
+                <Tabs
+                  key="bottomNavigation"
+                  tabBarComponent={BottomNavigationContainer}
+                  headerMode="none">
+                  <Scene
+                    key="watchlistScreen"
+                    title="Watchlist"
+                    icon="eye"
+                    component={WatchlistScreen}
+                  />
+                  <Scene
+                    key="searchScreen"
+                    icon="search"
+                    title="Search"
+                    component={SearchScreen}
+                  />
+                  <Scene
+                    key="newsScreen"
+                    icon="ios-megaphone"
+                    title="News"
+                    component={NewsScreen}
+                  />
+                  <Scene
+                    key="sectorsScreen"
+                    icon="home-city-outline"
+                    iconType="MaterialCommunityIcons"
+                    title="Sectors"
+                    onEnter={() => Actions.lightBoxScreen()}
+                    component={ComingSoonScreen}
+                  />
+                  <Scene
+                    key="learnScreen"
+                    icon="graduation-cap"
+                    iconType="FontAwesome5"
+                    title="Learn"
+                    lightbox={true}
+                    onEnter={() => Actions.lightBoxScreen()}
+                    component={ComingSoonScreen}
+                  />
+                  <Scene
+                    key="tradeScreen"
+                    icon="rocket"
+                    iconType="MaterialCommunityIcons"
+                    title="Trade"
+                    lightbox={true}
+                    onEnter={() => Actions.lightBoxScreen()}
+                    component={ComingSoonScreen}
+                  />
+                </Tabs>
+                <Stack key="searchNavigation">
+                  <Scene key="stock" title="Stock" component={StockScreen} />
+                </Stack>
+              </Stack>
+              <Scene
+                key="lightBoxScreen"
+                hideNavBar={true}
+                component={LightBoxScreen}
+              />
+            </Lightbox>
+          </Router>
+        </Container>
+      </StyleProvider>
     </Fragment>
   );
 };
