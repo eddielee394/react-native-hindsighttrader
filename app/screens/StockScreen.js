@@ -1,20 +1,13 @@
 import React from 'react';
-import { Layout, withStyles, Text } from 'react-native-ui-kitten';
+import { Container, Text } from 'native-base';
 import StockChart from '../components/Stock/StockChart';
 
-const Stock = props => {
-  const { style, themedStyle, ...restProps } = props;
-
+const StockScreen = props => {
   return (
-    <Layout style={[themedStyle.container]}>
+    <Container>
       <StockChart />
-    </Layout>
+    </Container>
   );
 };
 
-export const StockScreen = withStyles(Stock, theme => ({
-  container: {
-    flex: 1,
-    backgroundColor: theme['background-basic-color-2'],
-  },
-}));
+export default StockScreen;
