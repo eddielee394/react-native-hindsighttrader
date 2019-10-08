@@ -1,47 +1,60 @@
 import React from 'react';
 import {
-  Avatar,
+  Container,
+  Header,
+  Content,
   List,
   ListItem,
+  Left,
+  Body,
+  Right,
+  Thumbnail,
   Text,
-  withStyles,
-} from 'react-native-ui-kitten';
+} from 'native-base';
 import Api from '../../services/api';
 
-const WatchlistList = props => {
+export const WatchlistList = props => {
   const { style, themedStyle, ...restProps } = props;
-  const data = ['1', '2', '3'];
+  const data = [
+    {
+      symbol: 'AAPL',
+      companyName: 'Apple Inc',
+      bidPrice: 256.35,
+      askPrice: 258.35,
+      latestPrice: 259,
+    },
+    {
+      symbol: 'TSLA',
+      companyName: 'Tesla Inc.',
+      bidPrice: 356.35,
+      askPrice: 358.35,
+      latestPrice: 359,
+    },
+  ];
   const onItemPress = index => {
     // Handle item press
   };
   console.log('data', data);
 
-  const renderItem = ({ item, index }) => {
-    return (
-      <ListItem
-        style={[themedStyle.itemContainer]}
-        title={item.name}
-        description={item.companyName}
-        onPress={onItemPress}
-      />
-    );
-  };
-
   return (
-    <List
-      style={[themedStyle.contentContainer]}
-      data={data}
-      renderItem={renderItem}
-    />
+    <List>
+      {data.map(d => (
+        <ListItem key={d.symbol} avatar>
+          <Left>
+            <Thumbnail source={{}} />
+          </Left>
+          <Body>
+            <Text>{d.symbol}</Text>
+            <Text>{d.companyName}</Text>
+          </Body>
+          <Right>
+            <Text>{d.latestPrice}</Text>
+            <Text note>
+              B:{d.bidPrice}/A:{d.askPrice}
+            </Text>
+          </Right>
+        </ListItem>
+      ))}
+    </List>
   );
 };
-
-export default withStyles(WatchlistList, theme => ({
-  contentContainer: {
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-  },
-  itemContainer: {
-    marginVertical: 6,
-  },
-}));
