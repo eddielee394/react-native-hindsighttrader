@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { VictoryChart, VictoryCandlestick } from 'victory-native';
-import { getTransitionData } from '../../_data';
 import Api from '../../services/api';
-import { Layout } from 'react-native-ui-kitten';
+import { Container } from 'native-base';
 
 const initialCandleData = [
   { x: 1, open: 9, close: 30, high: 56, low: 7 },
@@ -16,7 +15,7 @@ const initialCandleData = [
 ];
 
 export default function StockChart(props) {
-  const [transitionData, setTransitionData] = useState(getTransitionData());
+  // const [transitionData, setTransitionData] = useState(getTransitionData());
 
   const [candleData, setCandleData] = useState(initialCandleData);
 
@@ -44,12 +43,12 @@ export default function StockChart(props) {
   }, []);
 
   return (
-    <Layout>
+    <Container>
       {console.log('candleData: ', candleData)}
       <VictoryChart>
         <VictoryCandlestick data={candleData} />
       </VictoryChart>
-    </Layout>
+    </Container>
   );
 }
 
