@@ -12,7 +12,7 @@ import {
 } from 'react-native-router-flux';
 //TODO move nav screens to global route component
 import Api from './services/api';
-import Toast from 'react-native-toast-native';
+
 import BottomNavigationContainer from './components/Navigation/BottomNavigationContainer';
 import {
   ComingSoonScreen,
@@ -22,15 +22,13 @@ import {
   StockScreen,
   WatchlistScreen,
 } from './screens';
-import { Container, StyleProvider } from 'native-base';
+import { Container, StyleProvider, Toast } from 'native-base';
 
 const renderToast = message => {
-  return Toast.show(
-    `There was an issue with rendering the data. Please refresh the application.\nError:${message}`,
-    Toast.LONG,
-    Toast.TOP,
-    style.toastBody,
-  );
+  return Toast.show({
+    text: `There was an issue with rendering the data. Please refresh the application.\nError:${message}`,
+    type: 'danger',
+  });
 };
 
 const App = () => {

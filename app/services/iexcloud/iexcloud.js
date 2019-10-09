@@ -173,6 +173,12 @@ class Iexcloud {
    * @example https://www.iexcloud.io/docs/api/#logo
    */
   getLogo = symbol => this._api.get(`/stock/${symbol}/logo`);
+  
+  /**
+   * Gets the list of available symbols
+   * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
+   */
+  getSymbols = () => this._api.get(`/ref-data/symbols`);
 }
 
 export default Iexcloud;

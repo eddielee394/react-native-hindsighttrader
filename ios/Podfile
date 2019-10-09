@@ -29,7 +29,6 @@ target 'hindsightTraderRN' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
-  pod 'RNToastNative', :path => '../node_modules/react-native-toast-native'
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 

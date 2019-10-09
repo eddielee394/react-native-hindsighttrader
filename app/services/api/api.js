@@ -1,5 +1,5 @@
 import Iexcloud from '../iexcloud';
-import Alphavantage from '../alphavantage';
+import { symbols } from '../../_data';
 
 class Api {
   constructor() {
@@ -288,6 +288,37 @@ class Api {
     }
 
     return response;
+  };
+
+  getSymbols = async () => {
+    // const response = await this.api.getSymbols();
+    const response = symbols;
+    
+    // the typical ways to die when calling an api
+    if (!response.ok) {
+      const error = this.getGeneralApiError(response);
+
+      if (error) {
+        console.log('Api problem', error);
+        return error;
+      }
+    }
+
+    const convertData = data => {
+      return {
+        symbol: data.symbol,
+        companyName: data.name,
+      };
+    };
+
+    // transform the data into the format we are expecting
+    try {
+      const rawData = response.data;
+      const data = rawData.map(d => convertData(d));
+      return data;
+    } catch {
+      return { message: 'bad-data', data: response.data };
+    }
   };
 
   /**
