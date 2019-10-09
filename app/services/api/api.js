@@ -271,7 +271,7 @@ class Api {
    * TODO-HT Add example in docbloc
    * TODO-HT add data type validations
    * @param {string} symbol company ticker symbol
-   * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
+   * @return {Promise<{data: *, message: string}>}
    * @example
    */
   getLogo = async symbol => {
@@ -287,7 +287,20 @@ class Api {
       }
     }
 
-    return response;
+    const convertData = data => {
+      return {
+        url: data.url,
+      };
+    };
+
+    // transform the data into the format we are expecting
+    try {
+      const data = convertData(response.data);
+      console.log('data', data, 'response.data', response.data);
+      return { message: 'ok', data };
+    } catch {
+      return { message: 'bad-data', data: response.data };
+    }
   };
 
   getSymbols = async () => {
