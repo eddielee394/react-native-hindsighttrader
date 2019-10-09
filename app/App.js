@@ -12,11 +12,10 @@ import {
 } from 'react-native-router-flux';
 //TODO move nav screens to global route component
 import Api from './services/api';
-
 import BottomNavigationContainer from './components/Navigation/BottomNavigationContainer';
 import {
   ComingSoonScreen,
-  LightBoxScreen,
+  LightboxScreen,
   NewsScreen,
   SearchScreen,
   StockScreen,
@@ -35,21 +34,21 @@ const App = () => {
   const [isLoading, setIsLoading] = useState({ isLoading: false });
   const [data, setData] = useState({ data: [] });
 
-  useEffect(() => {
-    setIsLoading({ isLoading: true });
-    //TODO-EP move to global state manager
-    Api.getQuoteData('aapl')
-      .then(response => {
-        //let's set the state with the retrieved data & disable the loader
-        setData({ ...data, response });
-        setIsLoading({ isLoading: false });
-      })
-      .catch(error => {
-        console.log(error);
-        //there was an error so notify the user
-        renderToast(error.message);
-      });
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading({ isLoading: true });
+  //   //TODO-EP move to global state manager
+  //   Api.getQuoteData('aapl')
+  //     .then(response => {
+  //       //let's set the state with the retrieved data & disable the loader
+  //       setData({ ...data, response });
+  //       setIsLoading({ isLoading: false });
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       //there was an error so notify the user
+  //       renderToast(error.message);
+  //     });
+  // }, []);
 
   return (
     <Fragment>
@@ -115,7 +114,7 @@ const App = () => {
               <Scene
                 key="lightBoxScreen"
                 hideNavBar={true}
-                component={LightBoxScreen}
+                component={LightboxScreen}
               />
             </Lightbox>
           </Router>
