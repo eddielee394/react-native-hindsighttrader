@@ -43,6 +43,9 @@ const App = () => {
           <Router>
             <Lightbox key="comingSoonOverlay">
               <Stack key="root" headerMode="none">
+                <Stack key="searchNavigation">
+                    <Scene key="stockScreen" title="Stock" component={StockScreen} />
+                </Stack>
                 <Tabs
                   key="bottomNavigation"
                   tabBarComponent={BottomNavigationContainer}
@@ -92,9 +95,6 @@ const App = () => {
                     component={ComingSoonScreen}
                   />
                 </Tabs>
-                <Stack key="searchNavigation">
-                  <Scene key="stock" title="Stock" component={StockScreen} />
-                </Stack>
               </Stack>
               <Scene
                 key="lightBoxScreen"

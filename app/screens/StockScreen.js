@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Text } from 'native-base';
-import StockChart from '../components/Stock/StockChart';
+import Chart from '../components/Stock/Chart';
+import Api from '../services/api';
 
 const StockScreen = props => {
   return (
     <Container>
-      <StockChart />
+      <Chart symbol="tsla" />
     </Container>
   );
 };
