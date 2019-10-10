@@ -5,3 +5,4 @@ export WatchlistScreen from './WatchlistScreen';
 export ComingSoonScreen from './ComingSoonScreen';
 export LightboxScreen from './LightboxScreen';
 export WelcomeScreen from './WelcomeScreen';
+export LoadingScreen from './LoadingScreen';

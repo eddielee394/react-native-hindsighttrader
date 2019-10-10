@@ -21,7 +21,7 @@ const ranges = [
   { label: '1y', range: '1y' },
 ];
 
-const Chart = props => {
+export function Chart(props) {
   const [range, setRange] = useState(ranges[0]);
   const [isLoading, setIsLoading] = useState(false);
   const [chart, setChart] = useState(null);
@@ -95,7 +95,7 @@ const Chart = props => {
       {isLoading ? <Spinner style={styles.spinner} /> : _renderChartContainer()}
     </Container>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -135,5 +135,3 @@ const svgStyles = {
     stroke: 'transparent',
   },
 };
-
-export default Chart;

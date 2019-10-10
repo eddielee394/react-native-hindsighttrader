@@ -11,3 +11,16 @@ export const formatDateMonthDay = date => {
     .format('L')
     .slice(0, -5);
 };
+
+export const formatTimeFromNow = timestamp => {
+  return moment(timestamp).fromNow();
+};
+
+export const formatPercent = val => {
+  const num = val * 100;
+  return parseFloat(num).toFixed(2) + '%';
+};
+
+export const isPositiveChange = val => {
+  return val > 0;
+};

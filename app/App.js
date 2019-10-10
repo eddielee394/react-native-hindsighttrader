@@ -1,8 +1,10 @@
+import './utils/fixTimerBug';
+
 import React from 'react';
 import getTheme from './theme/components';
 import theme from './theme';
-import { Root } from 'native-base';
-import { StatusBar, StyleSheet } from 'react-native';
+import { Container, Root, StyleProvider } from 'native-base';
+import { StatusBar } from 'react-native';
 import {
   Actions,
   Lightbox,
@@ -11,7 +13,7 @@ import {
   Stack,
   Tabs,
 } from 'react-native-router-flux';
-import BottomNavigationContainer from './components/Navigation/BottomNavigationContainer';
+import { BottomNavigation } from './components/Navigation/BottomNavigation';
 import {
   ComingSoonScreen,
   LightboxScreen,
@@ -21,14 +23,6 @@ import {
   WatchlistScreen,
   WelcomeScreen,
 } from './screens';
-import { Container, StyleProvider, Toast } from 'native-base';
-
-const renderToast = message => {
-  return Toast.show({
-    text: `There was an issue with rendering the data. Please refresh the application.\nError:${message}`,
-    type: 'danger',
-  });
-};
 
 const App = () => {
   return (
@@ -44,33 +38,36 @@ const App = () => {
                   title="Welcome"
                   component={WelcomeScreen}
                 />
-                <Stack key="searchNavigation">
+                <Tabs
+                  key="bottomNavigation"
+                  tabBarComponent={BottomNavigation}
+                  headerMode="none">
                   <Scene
                     key="stockScreen"
                     title="Stock"
+                    icon="area-chart"
+                    iconType="FontAwesome"
                     component={StockScreen}
                   />
-                </Stack>
-                <Tabs
-                  key="bottomNavigation"
-                  tabBarComponent={BottomNavigationContainer}
-                  headerMode="none">
                   <Scene
                     key="watchlistScreen"
                     title="Watchlist"
                     icon="eye"
+                    tabNav
                     component={WatchlistScreen}
                   />
                   <Scene
                     key="searchScreen"
                     icon="search"
                     title="Search"
+                    tabNav
                     component={SearchScreen}
                   />
                   <Scene
                     key="newsScreen"
                     icon="ios-megaphone"
                     title="News"
+                    tabNav
                     component={NewsScreen}
                   />
                   <Scene
@@ -79,6 +76,7 @@ const App = () => {
                     iconType="MaterialCommunityIcons"
                     title="Sectors"
                     onEnter={() => Actions.lightBoxScreen()}
+                    tabNav
                     component={ComingSoonScreen}
                   />
                   <Scene
@@ -88,6 +86,7 @@ const App = () => {
                     title="Learn"
                     lightbox={true}
                     onEnter={() => Actions.lightBoxScreen()}
+                    tabNav
                     component={ComingSoonScreen}
                   />
                   <Scene
@@ -97,6 +96,7 @@ const App = () => {
                     title="Trade"
                     lightbox={true}
                     onEnter={() => Actions.lightBoxScreen()}
+                    tabNav
                     component={ComingSoonScreen}
                   />
                 </Tabs>
