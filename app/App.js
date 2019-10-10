@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React from 'react';
 import getTheme from './theme/components';
 import theme from './theme';
 import { Root } from 'native-base';
@@ -11,8 +11,6 @@ import {
   Stack,
   Tabs,
 } from 'react-native-router-flux';
-//TODO move nav screens to global route component
-import Api from './services/api';
 import BottomNavigationContainer from './components/Navigation/BottomNavigationContainer';
 import {
   ComingSoonScreen,
@@ -32,9 +30,6 @@ const renderToast = message => {
 };
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState({ isLoading: false });
-  const [data, setData] = useState({ data: [] });
-
   return (
     <Root>
       <StyleProvider style={getTheme(theme.dark)}>
@@ -42,9 +37,13 @@ const App = () => {
           <StatusBar barStyle="dark-content" />
           <Router>
             <Lightbox key="comingSoonOverlay">
-              <Stack key="root" headerMode="none">
+              <Stack key="rootNavigation" headerMode="none">
                 <Stack key="searchNavigation">
-                    <Scene key="stockScreen" title="Stock" component={StockScreen} />
+                  <Scene
+                    key="stockScreen"
+                    title="Stock"
+                    component={StockScreen}
+                  />
                 </Stack>
                 <Tabs
                   key="bottomNavigation"
@@ -108,11 +107,5 @@ const App = () => {
     </Root>
   );
 };
-
-const styles = StyleSheet.create({
-  toastBody: {
-    textAlign: 'center',
-  },
-});
 
 export default App;
