@@ -36,7 +36,7 @@ Code quality, functionality and performance optimization will be improved over t
 - [ ] Add watchlist crud
 - [ ] Add mobx for global state management
 - [ ] Add localstorage state persistence
-- [ ] Add search functionality
+- [x] Add search functionality
 - [ ] Add news features
 - [ ] Add stocktwits integration
 - [ ] Add additional watchlist filter functionality
@@ -48,6 +48,7 @@ Code quality, functionality and performance optimization will be improved over t
 - [ ] Add test suites
 - [ ] Refactor navigation
 - [ ] Redesign UI
+- [ ] Performance optimizations
 - [ ] Add storybook support
 - [ ] Update documentation
 
