@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import { Button, Icon, Toast } from 'native-base';
-import { Linking, Text } from 'react-native';
+import React from 'react';
+import {Button, Icon, Toast} from 'native-base';
+import {Linking} from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const socialLinks = [
@@ -56,7 +56,7 @@ const _openUrl = async url => {
   }
 };
 
-const SocialLinks = props => {
+export function SocialLinks (props)  {
   const renderLinks = () =>
     socialLinks.map(link => (
       <Button key={link.icon} onPress={() => _openUrl(link.url)}>

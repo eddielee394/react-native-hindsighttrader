@@ -22,9 +22,10 @@ function WelcomeScreen(props) {
       <View style={styles.buttonContainer}>
         <Button
           block
+          bordered
           style={styles.button}
           onPress={() => RouteActions.bottomNavigation()}>
-          <Text>Get Started</Text>
+          <Text style={styles.buttonText}>Get Started</Text>
         </Button>
       </View>
     </Container>
@@ -56,7 +57,12 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   button: {
-    backgroundColor: theme.blue3,
+    borderColor: theme.dark.orange,
+    color: theme.dark.brandLight,
+    marginHorizontal: 15,
+  },
+  buttonText: {
+    color: theme.dark.brandLight,
   },
   logo: {
     flex: 1,

@@ -1,19 +1,17 @@
 import React from 'react';
 import {
   Footer,
+  Icon,
   ScrollableTab,
   Tab,
   TabHeading,
   Tabs,
   Text,
-  Icon,
-  Container,
-  Button,
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import theme from '../../theme';
 
-const BottomNavigationContainer = props => {
+export function BottomNavigation(props) {
   const { index, routes } = props.navigation.state;
 
   const onTabSelect = index => {
@@ -61,7 +59,7 @@ const BottomNavigationContainer = props => {
       </Tabs>
     </Footer>
   );
-};
+}
 
 const styles = StyleSheet.create({
   navTabBar: {
@@ -84,5 +82,3 @@ const styles = StyleSheet.create({
     display: 'none',
   },
 });
-
-export default BottomNavigationContainer;

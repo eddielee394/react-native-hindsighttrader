@@ -13,6 +13,7 @@ import {
 } from 'native-base';
 import Api from '../../services/api';
 
+//TODO this whole component needs to be completely re-jiggered
 export const WatchlistList = props => {
   const [logo1, setLogo1] = useState('');
   const [logo2, setLogo2] = useState('');
@@ -48,16 +49,7 @@ export const WatchlistList = props => {
 
   return (
     <List>
-      {console.log(
-        'watchlist data:',
-        data,
-        'logo1',
-        'logo1',
-        logo1,
-        'logo2',
-        logo2,
-      )}
-      {data.map(d => (
+    {data.map(d => (
         <ListItem key={d.symbol} avatar>
           <Left>
             <Thumbnail small source={{ uri: d.logo }} />

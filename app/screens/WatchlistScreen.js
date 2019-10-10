@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Text } from 'native-base';
+import React, { useState } from 'react';
+import { Container, Header } from 'native-base';
 import { WatchlistList } from '../components/Watchlist/WatchlistList';
-import Api from '../services/api';
 
 function WatchlistScreen(props) {
   const [data, setData] = useState({ data: [] });
 
   return (
     <Container>
+      <Header />
       <WatchlistList />
     </Container>
   );
