@@ -3,7 +3,7 @@ They say hindsight is 20/20 in the markets right?  Well here's a watchlist app t
 
 |    |    |
 |:---|:---|
-| ![stockScreen.png](https://github.com/eddielee394/react-native-hindsighttrader/tree/develop/docs/images/stockScreen.png)     |  ![welcome.png](https://github.com/eddielee394/react-native-hindsighttrader/tree/develop/docs/images/welcome.png)  |
+| ![welcome_screen] | ![stock_screen] |
 
 
 
@@ -57,3 +57,6 @@ Code quality, functionality and performance optimization will be improved over t
 - Ignite - Boilerplate generator
 - Victory Charts - Chart UI
 - IEXCloud - Market Data API
+
+[welcome_screen]:https://raw.githubusercontent.com/eddielee394/react-native-hindsighttrader/develop/docs/images/welcome.png
+[stock_screen]:https://raw.githubusercontent.com/eddielee394/react-native-hindsighttrader/develop/docs/images/stockScreen.png
