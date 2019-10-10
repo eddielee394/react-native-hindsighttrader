@@ -330,8 +330,7 @@ class Api {
    * @return {Promise<{data: *, message: string}|{temporary: boolean, message: string}|{temporary: boolean, message: string}|{message: string}|{temporary: boolean, message: string}|{message: string}|*|{symbol: *, companyName: *}[]>}
    */
   getSymbols = async () => {
-    // const response = await this.api.getSymbols();
-    const response = symbols;
+    const response = await this.api.getSymbols();
 
     // the typical ways to die when calling an api
     if (!response.ok) {
