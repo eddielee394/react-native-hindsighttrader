@@ -1,13 +1,9 @@
 import React from 'react';
-import { Container, Content, H1, H3, Text } from 'native-base';
+import { Container } from 'native-base';
 import { Image, StyleSheet } from 'react-native';
-import theme from '../../theme';
+import { images } from '../assets/images';
 
-const images = {
-  comingSoonDuck: require('./coolLookingDuck.png'),
-};
-
-const LightboxScreen = props => {
+function LightboxScreen(props) {
   return (
     <Container style={styles.container}>
       <Image
@@ -16,7 +12,7 @@ const LightboxScreen = props => {
       />
     </Container>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -43,4 +39,5 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
 });
+
 export default LightboxScreen;

@@ -36,7 +36,7 @@ const renderListItem = result => {
   );
 };
 
-const SearchScreen = props => {
+function SearchScreen(props) {
   const [query, setQuery] = useState('');
   const [data, setData] = useState(null);
   const [results, setResults] = useState([]);
@@ -92,7 +92,7 @@ const SearchScreen = props => {
       />
     </Container>
   );
-};
+}
 
 const styles = StyleSheet.create({
   listContainer: {

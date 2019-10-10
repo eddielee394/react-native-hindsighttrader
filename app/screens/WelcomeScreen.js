@@ -1,21 +1,25 @@
 import React from 'react';
 import { Container } from 'native-base';
 import { Image, StyleSheet } from 'react-native';
-import { htLogoWhite } from './index';
-import { SocialLinks } from '../../components/SocialLinks';
+import { images } from '../assets/images';
+import { SocialLinks } from '../components/SocialLinks';
 
-const SplashScreen = props => {
+function WelcomeScreen(props) {
   return (
     <Container>
       <Container style={styles.logoContainer}>
-        <Image style={styles.logo} resizeMode="contain" source={htLogoWhite} />
+        <Image
+          style={styles.logo}
+          resizeMode="contain"
+          source={images.htLogoWhite}
+        />
       </Container>
       <Container style={styles.iconContainer}>
         <SocialLinks />
       </Container>
     </Container>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -38,4 +42,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-export default SplashScreen;
+
+export default WelcomeScreen;

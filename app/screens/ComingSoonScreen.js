@@ -1,9 +1,8 @@
 import React from 'react';
 import { Container, H1, H3, Text } from 'native-base';
 import { StyleSheet } from 'react-native';
-import theme from '../theme';
 
-const ComingSoonScreen = props => {
+function ComingSoonScreen(props) {
   return (
     <Container style={styles.container}>
       <H1 style={styles.textStyle}>
@@ -14,7 +13,7 @@ const ComingSoonScreen = props => {
       </H3>
     </Container>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
