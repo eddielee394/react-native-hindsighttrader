@@ -1,11 +1,21 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Body, Button, Container, Header, Icon, Left, Right, Subtitle, Title} from 'native-base';
-import {Chart} from '../components/Stock/Chart';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Body,
+  Button,
+  Container,
+  Header,
+  Icon,
+  Left,
+  Right,
+  Subtitle,
+  Title,
+} from 'native-base';
+import { Chart } from '../components/Stock/Chart';
 import Api from '../services/api';
 import ErrorHandler from '../services/errorHandler';
-import {Actions} from 'react-native-router-flux';
-import {Quote} from '../components/Stock/Quote';
-import {LoadingScreen} from './';
+import { Actions } from 'react-native-router-flux';
+import { Quote } from '../components/Stock/Quote';
+import { LoadingScreen } from './';
 
 const initialData = {
   symbol: 'AAPL',
@@ -16,7 +26,7 @@ function StockScreen() {
   const [updateTimestamp, setUpdateTimestamp] = useState(null);
   const { symbol } = initialData;
   const updatedAt = new Date();
-  
+
   //useRef hook to keep the timeout from picking up on stale state
   const quoteRef = useRef(quote);
   quoteRef.current = quote;
@@ -46,7 +56,7 @@ function StockScreen() {
         .catch(error => {
           ErrorHandler.renderErrorNotification(error);
         });
-    }, 300000);
+    }, 5000);
   }, [symbol, updatedAt]);
 
   const handleAddToWatchlist = () => {
