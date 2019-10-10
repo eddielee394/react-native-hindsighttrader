@@ -47,7 +47,7 @@ class Iexcloud {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#batch-requests
    */
-  getBatch = (symbol, types, options = null) =>
+  getBatch = (symbol, types=['quote','chart','news'], options = null) =>
     this._api.get(`/stock/${symbol}/batch`, {
       types: types,
       ...options,

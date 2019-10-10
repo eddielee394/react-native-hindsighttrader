@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import getTheme from './theme/components';
 import theme from './theme';
+import { Root } from 'native-base';
 import { StatusBar, StyleSheet } from 'react-native';
 import {
   Actions,
@@ -34,24 +35,8 @@ const App = () => {
   const [isLoading, setIsLoading] = useState({ isLoading: false });
   const [data, setData] = useState({ data: [] });
 
-  // useEffect(() => {
-  //   setIsLoading({ isLoading: true });
-  //   //TODO-EP move to global state manager
-  //   Api.getQuoteData('aapl')
-  //     .then(response => {
-  //       //let's set the state with the retrieved data & disable the loader
-  //       setData({ ...data, response });
-  //       setIsLoading({ isLoading: false });
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //       //there was an error so notify the user
-  //       renderToast(error.message);
-  //     });
-  // }, []);
-
   return (
-    <Fragment>
+    <Root>
       <StyleProvider style={getTheme(theme.dark)}>
         <Container>
           <StatusBar barStyle="dark-content" />
@@ -120,7 +105,7 @@ const App = () => {
           </Router>
         </Container>
       </StyleProvider>
-    </Fragment>
+    </Root>
   );
 };
 

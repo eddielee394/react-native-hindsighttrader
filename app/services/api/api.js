@@ -10,7 +10,7 @@ class Api {
    * Gets the quote data for a single symbol
    * @param {string} symbol company ticker symbol
    * @param {object} options optional parameters
-   * @return {Promise<{data: *, message: string}>}
+   * @return {Promise<{data: {*}, message: string}>}
    */
   getQuoteData = async (symbol, options = null) => {
     const response = await this.api.getQuote(symbol);
@@ -85,8 +85,30 @@ class Api {
    * @return {Promise<ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example getChartData('aapl','1d',30)
    */
-  getChartData = async (symbol, range, interval) => {
+  getChartData = async (symbol, range, interval = 1) => {
     const response = await this.api.getChartBatch(symbol, range, interval);
+
+    if (!response.ok) {
+      const error = this.getGeneralApiError(response);
+
+      if (error) {
+        console.log('Api problem', error);
+        return Promise.reject(error);
+      }
+    }
+
+    return response;
+  };
+
+  /**
+   *
+   * @param {string} symbol company ticker symbol
+   * @param {array} types data types to return chart|news|quote
+   * @param {object|null} options optional parameters
+   * @return {Promise<array|object>}
+   */
+  getStockBatchData = async (symbol, types = null, options = null) => {
+    const response = await this.api.getBatch(symbol, types, options);
 
     if (!response.ok) {
       const error = this.getGeneralApiError(response);
@@ -303,10 +325,14 @@ class Api {
     }
   };
 
+  /**
+   * Returns a list of symbols
+   * @return {Promise<{data: *, message: string}|{temporary: boolean, message: string}|{temporary: boolean, message: string}|{message: string}|{temporary: boolean, message: string}|{message: string}|*|{symbol: *, companyName: *}[]>}
+   */
   getSymbols = async () => {
     // const response = await this.api.getSymbols();
     const response = symbols;
-    
+
     // the typical ways to die when calling an api
     if (!response.ok) {
       const error = this.getGeneralApiError(response);

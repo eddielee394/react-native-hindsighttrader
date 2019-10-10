@@ -8,6 +8,7 @@ YellowBox.ignoreWarnings([
   'componentWillMount is deprecated',
   'componentWillReceiveProps is deprecated',
   'Remote debugger',
+  'moment construction falls back to js Date()',
 ]);
 
 if (__DEV__) {
