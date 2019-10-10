@@ -1,22 +1,32 @@
 import React from 'react';
-import { Container } from 'native-base';
+import { Button, Container, Text, View } from 'native-base';
 import { Image, StyleSheet } from 'react-native';
 import { images } from '../assets/images';
 import { SocialLinks } from '../components/SocialLinks';
+import { Actions as RouteActions } from 'react-native-router-flux';
+import theme from '../theme';
 
 function WelcomeScreen(props) {
   return (
     <Container>
-      <Container style={styles.logoContainer}>
+      <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
           resizeMode="contain"
           source={images.htLogoWhite}
         />
-      </Container>
-      <Container style={styles.iconContainer}>
+      </View>
+      <View style={styles.iconContainer}>
         <SocialLinks />
-      </Container>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          block
+          style={styles.button}
+          onPress={() => RouteActions.bottomNavigation()}>
+          <Text>Get Started</Text>
+        </Button>
+      </View>
     </Container>
   );
 }
@@ -28,15 +38,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoContainer: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
   iconContainer: {
-    flex: 1,
+    flex: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    flex: 2,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 50,
+  },
+  button: {
+    backgroundColor: theme.blue3,
   },
   logo: {
     flex: 1,

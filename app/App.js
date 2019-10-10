@@ -19,6 +19,7 @@ import {
   SearchScreen,
   StockScreen,
   WatchlistScreen,
+  WelcomeScreen,
 } from './screens';
 import { Container, StyleProvider, Toast } from 'native-base';
 
@@ -38,6 +39,11 @@ const App = () => {
           <Router>
             <Lightbox key="comingSoonOverlay">
               <Stack key="rootNavigation" headerMode="none">
+                <Scene
+                  key="welcomeScreen"
+                  title="Welcome"
+                  component={WelcomeScreen}
+                />
                 <Stack key="searchNavigation">
                   <Scene
                     key="stockScreen"
