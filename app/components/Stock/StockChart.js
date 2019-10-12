@@ -21,7 +21,7 @@ const ranges = [
   { label: '1y', range: '1y' },
 ];
 
-export function Chart(props) {
+export function StockChart(props) {
   const [range, setRange] = useState(ranges[0]);
   const [isLoading, setIsLoading] = useState(false);
   const [chart, setChart] = useState(null);

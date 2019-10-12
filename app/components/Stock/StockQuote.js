@@ -16,9 +16,15 @@ import {
   formatTimeFromNow,
   isPositiveChange,
 } from '../../utils/helpers';
+import { useSelector } from 'react-redux';
+import { LoadingScreen } from '../../screens';
 
-export function Quote(props) {
-  const { quote, updateTimestamp } = props;
+export function StockQuote(props) {
+  const { updateTimestamp } = props;
+  const quote = useSelector(({ stock }) => {
+    console.log('useSelector', stock);
+    return stock.quote.data;
+  });
 
   const handlePosNegStyle = val => {
     return val < 0 ? styles.negative : styles.positive;
