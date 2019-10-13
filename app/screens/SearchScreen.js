@@ -13,33 +13,14 @@ import { StyleSheet } from 'react-native';
 import theme from '../theme';
 import Autocomplete from 'native-base-autocomplete';
 import Api from '../services/api';
-
-const renderInput = props => {
-  return (
-    <Item>
-      <Icon active name="search" />
-      <Input {...props} />
-    </Item>
-  );
-};
-
-const renderListItem = result => {
-  return (
-    <ListItem key={result.symbol}>
-      <Left>
-        <Text>{result.symbol}</Text>
-      </Left>
-      <Body>
-        <Text>{result.companyName}</Text>
-      </Body>
-    </ListItem>
-  );
-};
+import { useDispatch } from 'react-redux';
+import * as Actions from '../store/actions';
 
 function SearchScreen(props) {
   const [query, setQuery] = useState('');
   const [data, setData] = useState(null);
   const [results, setResults] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     Api.getSymbols().then(d => {
@@ -52,7 +33,7 @@ function SearchScreen(props) {
   }, [query]);
 
   const handleSelectItem = (item, index) => {
-    //TODO when item is selected display the stock view
+    dispatch(Actions.setSymbol(item));
     console.log('handleSelectedItem', item);
   };
 
@@ -74,6 +55,30 @@ function SearchScreen(props) {
     setQuery(q);
   };
 
+  const _renderInput = props => {
+    return (
+      <Item>
+        <Icon active name="search" />
+        <Input {...props} />
+      </Item>
+    );
+  };
+
+  const _renderListItem = result => {
+    return (
+      <ListItem
+        key={result.symbol}
+        onPress={() => handleSelectItem(result.symbol)}>
+        <Left>
+          <Text>{result.symbol}</Text>
+        </Left>
+        <Body>
+          <Text>{result.companyName}</Text>
+        </Body>
+      </ListItem>
+    );
+  };
+
   return (
     <Container>
       <Autocomplete
@@ -82,12 +87,12 @@ function SearchScreen(props) {
         autoCapitalize="none"
         autoCorrect={false}
         data={results}
-        renderTextInput={renderInput}
+        renderTextInput={_renderInput}
         defaultValue={query}
         hideResults={results.length < 1 || query === ''}
         onChangeText={handleSearch}
         placeholder="Enter symbol"
-        renderItem={renderListItem}
+        renderItem={_renderListItem}
         keyboardShouldPersistTaps="always"
       />
     </Container>

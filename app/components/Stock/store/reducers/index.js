@@ -6,7 +6,7 @@ import chart from './chart.reducer';
 const reducer = combineReducers({
   quote,
   chart,
-  stock,
+  data: stock,
 });
 
 export default reducer;

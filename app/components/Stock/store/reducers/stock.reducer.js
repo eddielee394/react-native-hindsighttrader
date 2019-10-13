@@ -1,7 +1,8 @@
 import * as Actions from '../actions';
 
 const initialState = {
-  data: {},
+  symbol: 'AAPL',
+  companyInfo: {},
   lastUpdated: null,
   isLoading: false,
 };

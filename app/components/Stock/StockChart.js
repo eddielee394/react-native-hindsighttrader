@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import { Text, Container, Spinner, Button, Item } from 'native-base';
+import { Button, Container, Item, Spinner, Text } from 'native-base';
 import {
   LineSegment,
-  VictoryChart,
   VictoryAxis,
+  VictoryCandlestick,
+  VictoryChart,
   VictoryLabel,
   VictoryTheme,
-  VictoryCandlestick,
 } from 'victory-native';
-import Api from '../../services/api';
 import theme from '../../theme';
 import { formatDateMonthDay } from '../../utils/helpers';
-import ErrorHandler from '../../services/errorHandler';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Actions from './store/actions';
 
 const ranges = [
   { label: '1m', range: '1m' },
@@ -22,25 +22,19 @@ const ranges = [
 ];
 
 export function StockChart(props) {
-  const [range, setRange] = useState(ranges[0]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [chart, setChart] = useState(null);
-  const { symbol } = props;
+  const symbol = useSelector(({ stock }) => stock.data.symbol);
+  const chart = useSelector(({ stock }) => stock.chart.data);
+  const range = useSelector(({ stock }) => stock.chart.range);
+  const isLoading = useSelector(({ stock }) => stock.chart.isLoading);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setIsLoading(true);
-    Api.getChartData(symbol, range.range)
-      .then(response => {
-        setChart(response.data.chart);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        ErrorHandler.renderErrorNotification(error);
-      });
-  }, [symbol, range]);
+    dispatch(Actions.getChart(symbol, range));
+  }, [dispatch, range]);
 
   const handleSelectRange = item => {
-    setRange(item);
+    dispatch(Actions.toggleRange(item.range));
   };
 
   const label = <VictoryLabel style={svgStyles.chartLabel} />;
@@ -51,7 +45,7 @@ export function StockChart(props) {
       {ranges.map((item, index) => (
         <Button
           key={index}
-          bordered={item.range === range.range}
+          bordered={item.range === range}
           onPress={() => handleSelectRange(item)}
           style={styles.rangesButton}>
           <Text style={[styles.rangesLabel]}>{item.label}</Text>

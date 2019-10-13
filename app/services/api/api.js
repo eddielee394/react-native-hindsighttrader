@@ -318,7 +318,6 @@ class Api {
     // transform the data into the format we are expecting
     try {
       const data = convertData(response.data);
-      console.log('data', data, 'response.data', response.data);
       return { message: 'ok', data };
     } catch {
       return { message: 'bad-data', data: response.data };

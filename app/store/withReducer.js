@@ -9,7 +9,6 @@ const withReducer = (key, reducer) => WrappedComponent =>
     }
 
     render() {
-      console.log('withReducer', key);
       return <WrappedComponent {...this.props} />;
     }
   };
