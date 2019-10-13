@@ -9,7 +9,6 @@ const initialState = {
 const quoteReducer = (state = initialState, action) => {
   switch (action.type) {
     case Actions.GET_QUOTE:
-      console.log('Actions.GET_QUOTE', action.payload);
       return { ...state, isLoading: true };
     case Actions.GET_QUOTE_SUCCESS:
       return { ...state, data: action.payload, isLoading: false };

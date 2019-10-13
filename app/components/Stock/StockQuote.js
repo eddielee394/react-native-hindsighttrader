@@ -22,7 +22,6 @@ import { LoadingScreen } from '../../screens';
 export function StockQuote(props) {
   const { updateTimestamp } = props;
   const quote = useSelector(({ stock }) => {
-    console.log('useSelector', stock);
     return stock.quote.data;
   });
 

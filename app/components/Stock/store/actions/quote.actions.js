@@ -6,7 +6,6 @@ export const GET_QUOTE_SUCCESS = '[STOCKS ] GET QUOTE SUCCESS';
 export const GET_QUOTE_ERROR = '[STOCKS ] GET QUOTE ERROR';
 
 export function getQuote(symbol) {
-  console.log('action.getQuote', symbol);
   const request = Api.getQuoteData(symbol);
 
   return dispatch => {
