@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { Container, Header } from 'native-base';
-import { WatchlistList } from '../components/Watchlist/WatchlistList';
+import WatchlistContainer from '../components/Watchlist/WatchlistContainer';
 
 function WatchlistScreen(props) {
-  const [data, setData] = useState({ data: [] });
-
   return (
     <Container>
-      <Header />
-      <WatchlistList />
+      <WatchlistContainer />
     </Container>
   );
 }

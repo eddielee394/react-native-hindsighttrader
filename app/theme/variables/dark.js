@@ -134,8 +134,8 @@ export default {
   // Color
   brandPrimary: platform === PLATFORM.IOS ? '#131c2a' : '#131c2a',
   brandInfo: '#62B1F6',
-  brandSuccess: '#5cb85c',
-  brandDanger: '#d9534f',
+  brandSuccess: '#0f9d58',
+  brandDanger: '#d23f31',
   brandWarning: '#f0ad4e',
   brandDark: '#bcc6d9',
   brandLight: '#bcc6d9',
@@ -256,7 +256,7 @@ export default {
 
   // List
   listBg: 'transparent',
-  listBorderColor: '#c9c9c9',
+  listBorderColor: 'rgba(201,201,201,0.51)',
   listDividerBg: '#f4f4f4',
   listBtnUnderlayColor: '#DDD',
   listItemPadding: platform === PLATFORM.IOS ? 10 : 12,
@@ -320,7 +320,7 @@ export default {
   borderRadiusBase: platform === PLATFORM.IOS ? 5 : 2,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
   contentPadding: 10,
-  dropdownLinkColor: '#414142',
+  dropdownLinkColor: '#bcc6d9',
   inputLineHeight: 24,
   deviceWidth,
   deviceHeight,
