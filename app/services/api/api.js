@@ -354,7 +354,7 @@ class Api {
     try {
       const rawData = response.data;
       const data = rawData.map(d => convertData(d));
-      return data;
+      return { data };
     } catch {
       return { message: 'bad-data', data: response.data };
     }
