@@ -5,12 +5,12 @@ const initialState = {
   data: [
     {
       id: '0eccacea-805f-49a9-9338-f835935e4ac0',
-      name: 'Getting Started 1',
+      name: 'My First List',
       symbols: ['aapl', 'msft', 'goog'],
     },
     {
       id: 'ed0d22dc-7f32-4b71-9cf8-d46310728aaa',
-      name: 'Getting Started 2',
+      name: 'My Second List',
       symbols: ['tsla', 'amzn', 'nflx'],
     },
   ],

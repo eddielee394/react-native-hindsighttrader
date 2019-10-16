@@ -1,8 +1,8 @@
 import Api from '../../../../services/api';
 
 export const GET_WATCHLIST = '[WATCHLIST] GET WATCHLIST';
+export const GET_WATCHLIST_DATA = '[WATCHLIST] GET WATCHLIST DATA';
 export const COPY_WATCHLIST = '[WATCHLIST] COPY WATCHLIST';
-export const RENAME_WATCHLIST = '[WATCHLIST] RENAME WATCHLIST';
 export const ORDER_LIST = '[WATCHLIST] ORDER LIST';
 
 export function getWatchlist(id) {
@@ -17,6 +17,8 @@ export function getWatchlist(id) {
     });
   };
 }
+
+export function getWatchlistData(id) {}
 
 // export function openWatchlist(id) {
 //   return {

@@ -40,6 +40,7 @@ function WatchlistContainer(props) {
       </Modal>
     </Container>
   );
+  
   return (
     <Container>
       <Header>

@@ -18,10 +18,13 @@ import * as Actions from './store/actions';
 import SwipeableRow from '../UI/SwipeableRow';
 import { images } from '../../assets/images';
 import theme from '../../theme';
+import Dialog from 'react-native-dialog';
 
 export const WatchlistList = props => {
   const [damping] = useState(1 - 0.6);
   const [tension] = useState(300);
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [watchlistName, setWatchlistName] = useState('');
 
   const watchlists = useSelector(({ watchlists }) => watchlists.data);
   const watchlist = useSelector(({ watchlist }) => watchlist.data);
@@ -31,7 +34,6 @@ export const WatchlistList = props => {
 
   const showConfirmDialogue = (content, callback = null) => {
     //TODO-EP move showConfirmDialogue into an action
-
     const defaultButtons = [
       {
         text: 'Cancel',
@@ -58,7 +60,8 @@ export const WatchlistList = props => {
   };
 
   const handleAddWatchlist = () => {
-    dispatch(Actions.createWatchlist('test watchlist'));
+    dispatch(Actions.createWatchlist(watchlistName));
+    setDialogVisible(false);
   };
 
   const handleDeleteWatchlist = id => {
@@ -98,7 +101,7 @@ export const WatchlistList = props => {
           </TouchableOpacity>
           <View>
             <Text style={styles.rowTitle}>{item.name}</Text>
-            <Text style={styles.rowSubtitle}>Drag the row left and right</Text>
+            <Text style={styles.rowSubtitle}>Category</Text>
           </View>
           <View style={styles.iconRightContainer}>
             <Icon name="md-reorder" style={styles.icon} />
@@ -106,6 +109,34 @@ export const WatchlistList = props => {
         </View>
       </SwipeableRow>
     ));
+
+  const _renderCreateDialogue = () => (
+    <Dialog.Container
+      visible={dialogVisible}
+      contentStyle={styles.dialogContainer}>
+      <Dialog.Title style={[styles.dialogText, styles.dialogTitle]}>
+        Add Watchlist
+      </Dialog.Title>
+      <Dialog.Description style={[styles.dialogText, styles.dialogDescription]}>
+        Enter a watchlist name
+      </Dialog.Description>
+      <Dialog.Input
+        underlineColorAndroid={theme.dark.blue3}
+        style={[styles.dialogText, styles.dialogInput]}
+        onChangeText={text => setWatchlistName(text)}
+      />
+      <Dialog.Button
+        label="Cancel"
+        color={theme.dark.orange}
+        onPress={() => setDialogVisible(false)}
+      />
+      <Dialog.Button
+        label="OK"
+        color={theme.dark.orange}
+        onPress={handleAddWatchlist}
+      />
+    </Dialog.Container>
+  );
 
   return (
     <Container>
@@ -122,7 +153,7 @@ export const WatchlistList = props => {
       <Content padder>
         <Item style={styles.buttonContainer}>
           <Button
-            onPress={handleAddWatchlist}
+            onPress={() => setDialogVisible(true)}
             style={styles.button}
             block
             success
@@ -131,6 +162,7 @@ export const WatchlistList = props => {
           </Button>
         </Item>
         {_renderRows()}
+        {_renderCreateDialogue()}
       </Content>
     </Container>
   );
@@ -190,4 +222,11 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 10,
   },
+  dialogContainer: {
+    backgroundColor: theme.dark.blue2,
+  },
+  dialogText: { color: theme.dark.brandLight },
+  dialogTitle: {},
+  dialogDescription: {},
+  dialogInput: {},
 });

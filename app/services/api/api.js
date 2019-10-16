@@ -132,7 +132,7 @@ class Api {
    * @return {Promise<ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example getChartData('aapl','1d',30)
    */
-  getMarketBatchData = async (symbols, types, options = null) => {
+  getMarketBatchData = async (symbols, types = null, options = null) => {
     const response = await this.api.getMarketBatch(symbols, types, options);
 
     if (!response.ok) {
@@ -394,17 +394,17 @@ class Api {
 
   getWatchlist = async id => {
     let response = await load('persist:root');
-    
+
     const watchlistData = {
       ...response,
       ...JSON.parse(response.data.watchlists),
     };
-    
+
     const watchlists = watchlistData.data;
     const watchlistItem = _.find(watchlists, item => item.id === id);
-    
+
     response = { ...response, data: watchlistItem };
-    
+
     // the typical ways to die when calling an api
     if (!response.ok) {
       const error = this.getGeneralApiError(response);
@@ -443,8 +443,6 @@ class Api {
 
     // the typical ways to die when calling an api
     if (!response.ok) {
-      console.tron.log('!response.ok', response);
-
       const error = this.getGeneralApiError(response);
 
       if (error) {
