@@ -9,7 +9,7 @@ import {
   Text,
 } from 'native-base';
 import { StyleSheet } from 'react-native';
-import theme from '../../theme';
+import theme from '../theme';
 
 export function BottomNavigation(props) {
   const { index, routes } = props.navigation.state;
@@ -21,6 +21,10 @@ export function BottomNavigation(props) {
       routeName: selectedRoute.routeName,
     });
   };
+
+  const filteredTabRoutes = routes.filter(
+    route => route.routes[0].params.tabNav === true,
+  );
 
   const renderTabHeading = (title, icon, iconType) => (
     <TabHeading style={styles.navTabHeading}>
@@ -43,7 +47,7 @@ export function BottomNavigation(props) {
         onChangeTab={tab => onTabSelect(tab.i)}
         style={styles.navTabBar}
         tabBgColor={styles.navTabBar.backgroundColor}>
-        {routes.map(route => {
+        {filteredTabRoutes.map(route => {
           return (
             <Tab
               key={route.key}

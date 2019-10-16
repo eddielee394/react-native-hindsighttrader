@@ -47,7 +47,7 @@ class Iexcloud {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#batch-requests
    */
-  getBatch = (symbol, types=['quote','chart','news'], options = null) =>
+  getBatch = (symbol, types = ['quote', 'chart', 'news'], options = null) =>
     this._api.get(`/stock/${symbol}/batch`, {
       types: types,
       ...options,
@@ -78,12 +78,15 @@ class Iexcloud {
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example https://www.iexcloud.io/docs/api/#batch-requests
    */
-  getMarketBatch = (symbols, types, options = null) =>
-    this._api.get(`/stock/market/batch`, {
+  getMarketBatch = (symbols, types, options = null) => {
+    types = types || ['quote', 'chart', 'news'];
+
+    return this._api.get(`/stock/market/batch`, {
       symbols: symbols,
       types: types,
       ...options,
     });
+  };
 
   /**
    * Gets the quote data for a single symbol
@@ -173,7 +176,7 @@ class Iexcloud {
    * @example https://www.iexcloud.io/docs/api/#logo
    */
   getLogo = symbol => this._api.get(`/stock/${symbol}/logo`);
-  
+
   /**
    * Gets the list of available symbols
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}

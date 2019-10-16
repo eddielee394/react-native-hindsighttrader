@@ -4,6 +4,7 @@ export const GET_CHART = '[STOCK] GET CHART';
 export const GET_CHART_SUCCESS = '[STOCK] GET CHART SUCCESS';
 export const GET_CHART_ERROR = '[STOCK] GET CHART ERROR';
 export const TOGGLE_RANGE = '[STOCK] TOGGLE RANGE';
+
 export const RANGE_1DAY = {
   label: '',
   value: '1d',
@@ -33,10 +34,8 @@ export function getChart(symbol, range) {
     dispatch({
       type: GET_CHART,
     });
-
     request
       .then(response => {
-        console.log('response', response.data);
         return dispatch({
           type: GET_CHART_SUCCESS,
           payload: response.data.chart,
@@ -55,12 +54,4 @@ export function getChart(symbol, range) {
 export function toggleRange(range) {
   console.log('toggleRange', range);
   return dispatch => dispatch({ type: TOGGLE_RANGE, range });
-
-  // return (dispatch, getState) => {
-  // const { symbol } = getState().stock.data;
-
-  // dispatch(getChart(symbol, range));
-  //console.log('range', range);
-  // return dispatch => dispatch({ type: TOGGLE_RANGE, range: range });
-  // };
 }

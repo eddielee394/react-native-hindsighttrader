@@ -20,7 +20,7 @@ import * as Actions from './store/actions';
 function WatchlistContainer(props) {
   const [showModal, setShowModal] = useState(false);
 
-  const watchlist = useSelector(({ watchlist }) => watchlist.data);
+  const watchlist = useSelector(({ watchlist }) => watchlist);
 
   const dispatch = useDispatch();
 

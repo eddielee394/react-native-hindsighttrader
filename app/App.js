@@ -9,7 +9,20 @@ import theme from './theme';
 import { Container, Root, StyleProvider } from 'native-base';
 import { StatusBar } from 'react-native';
 import { RootNavigator } from './navigation/RootNavigator';
+import Reactotron from 'reactotron-react-native';
+import { getAllKeys, clear, remove } from './utils/storage';
 
+// Reactotron.onCustomCommand({
+//   title: 'Purge persisted storage',
+//   description: 'Purges the persisted storage',
+//   command: 'persistorPurge',
+//   handler: () => {
+//     console.tron.log('purging the persisted storage');
+//     persistor.purge();
+//   },
+// });
+getAllKeys().then(response => console.log(response));
+// remove('persist:root');
 const App = () => {
   return (
     <Root>

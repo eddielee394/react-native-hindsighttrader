@@ -6,13 +6,6 @@ import { images } from '../assets/images';
 function LoadingScreen(props) {
   return (
     <Container>
-      <View style={styles.logoContainer}>
-        <Image
-          style={styles.logo}
-          resizeMode="contain"
-          source={images.htLogoWhite}
-        />
-      </View>
       <View style={styles.spinnerContainer}>
         <Spinner />
       </View>

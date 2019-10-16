@@ -1,5 +1,5 @@
-import { createPromise } from "redux-promise-middleware";
+import { createPromise } from 'redux-promise-middleware';
 
 export const reduxPromise = createPromise({
-  promiseTypeSuffixes: ["LOADING", "SUCCESS", "FAILURE"]
+  promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR'],
 });

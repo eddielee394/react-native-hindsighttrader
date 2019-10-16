@@ -17,7 +17,7 @@ Code quality, functionality and performance optimization will be improved over t
 - copy the `.env.example` file to `.env`
 - `yarn start`
 - `react-native run-android`
-- `yarn react-devtools` to display react-native devtools
+- `yarn react-devtools` to display react-native devtools, the application also has a built-in integration with [Reactotron][1] as well.
 
 ## Functionality
 - User can create, edit, delete watchlists
@@ -34,8 +34,9 @@ Code quality, functionality and performance optimization will be improved over t
 - [x] Add historical charts functionality
 - [x] Add real time quote data
 - [ ] Add watchlist crud
-- [ ] Add mobx for global state management
-- [ ] Add localstorage state persistence
+- [ ] ~~Add mobx for global state management~~
+- [x] Add redux for global state management
+- [x] Add localstorage state persistence
 - [x] Add search functionality
 - [ ] Add news features
 - [ ] Add stocktwits integration
@@ -53,10 +54,14 @@ Code quality, functionality and performance optimization will be improved over t
 - [ ] Update documentation
 
 ## Shoutouts
-- Native Base - UI Library
-- Ignite - Boilerplate generator
-- Victory Charts - Chart UI
-- IEXCloud - Market Data API
+- [Native Base][2] - UI Library
+- [Victory Charts][3] - Chart UI
+- [IEXCloud][4] - Market Data API
 
 [welcome_screen]:https://raw.githubusercontent.com/eddielee394/react-native-hindsighttrader/develop/docs/images/welcome.png
 [stock_screen]:https://raw.githubusercontent.com/eddielee394/react-native-hindsighttrader/develop/docs/images/stockScreen.png
+
+[1]: https://github.com/infinitered/reactotron
+[2]: https://github.com/GeekyAnts/NativeBase
+[3]: https://github.com/FormidableLabs/victory-native
+[4]: https://www.iexcloud.io

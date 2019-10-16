@@ -55,5 +55,5 @@ export const injectReducer = (key, reducer) => {
 };
 
 persistor.persist();
-
+// persistor.purge();
 export { store, persistor };

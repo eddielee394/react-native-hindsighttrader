@@ -1,4 +1,5 @@
 import Api from '../../../../services/api';
+import { showMessage } from '../../../../store/actions';
 
 export const GET_WATCHLIST = '[WATCHLIST] GET WATCHLIST';
 export const GET_WATCHLIST_DATA = '[WATCHLIST] GET WATCHLIST DATA';
@@ -12,7 +13,7 @@ export const COPY_WATCHLIST = '[WATCHLIST] COPY WATCHLIST';
 export function getWatchlist(id) {
   const request = Api.getWatchlist(id);
 
-  return (dispatch, getState) => {
+  return dispatch => {
     request.then(response => {
       return dispatch({
         type: GET_WATCHLIST,
@@ -22,10 +23,28 @@ export function getWatchlist(id) {
   };
 }
 
-export function getWatchlistData(id) {
-  const request = Api.getMarketBatchData();
+export function getWatchlistData(symbols) {
+  const request = Api.getMarketBatchData(symbols);
+  
   return dispatch => {
-    dispatch({});
+    dispatch({
+      type: GET_WATCHLIST_DATA,
+    });
+
+    request
+      .then(response => {
+        return dispatch({
+          type: GET_WATCHLIST_DATA_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_WATCHLIST_DATA_ERROR,
+          payload: error.message,
+        });
+        return dispatch(showMessage(error.message));
+      });
   };
 }
 

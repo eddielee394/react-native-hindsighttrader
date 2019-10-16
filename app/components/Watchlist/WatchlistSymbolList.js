@@ -2,23 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions as RouteActions } from 'react-native-router-flux';
-import {
-  Container,
-  Header,
-  Content,
-  List,
-  ListItem,
-  Left,
-  Body,
-  Right,
-  Thumbnail,
-  Text,
-  Button,
-  View,
-  Icon,
-} from 'native-base';
-import Api from '../../services/api';
-import * as Actions from './store/actions';
+import { Container, Icon, Text, View } from 'native-base';
 import * as stockActions from '../Stock/store/actions';
 import * as watchlistActions from './store/actions';
 import SwipeableRow from '../UI/SwipeableRow';
@@ -30,28 +14,17 @@ import theme from '../../theme';
 function WatchlistSymbolList(props) {
   const [damping] = useState(1 - 0.6);
   const [tension] = useState(300);
-  const [data, setData] = useState(null);
 
   const watchlists = useSelector(({ watchlists }) => watchlists.data);
-  const watchlist = useSelector(({ watchlist }) => watchlist.data);
-
+  const watchlist = useSelector(({ watchlist }) => watchlist);
+  const data = useSelector(({ watchlist }) => watchlist.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    Api.getMarketBatchData(watchlist.symbols)
-      .then(response => setData(response.data))
-      .catch(error => console.log(error, error.message));
-  }, [watchlist]);
+    dispatch(watchlistActions.getWatchlistData(watchlist.symbols));
+  }, [dispatch]);
 
-  // useEffect(() => {
-  //   console.tron.log({
-  //     watchlist: watchlist,
-  //     watchlists: watchlists,
-  //     data: data,
-  //   });
-  // }, [watchlist, watchlists, data]);
-
-  const handleItemPress = symbol => {
+  const handleGetSymbol = symbol => {
     dispatch(stockActions.setSymbol(symbol));
     RouteActions.stockScreen();
   };
@@ -77,7 +50,7 @@ function WatchlistSymbolList(props) {
         damping={damping}
         tension={tension}>
         <View style={styles.contentContainer}>
-          <TouchableOpacity onPress={() => handleItemPress(item.symbol)}>
+          <TouchableOpacity onPress={() => handleGetSymbol(item.symbol)}>
             <View style={styles.iconLeftContainer}>
               <Icon name="md-reorder" style={styles.icon} />
             </View>
@@ -90,9 +63,12 @@ function WatchlistSymbolList(props) {
             <Text note>Chart goes here</Text>
           </View>
           <View style={styles.contentRightContainer}>
-            <Text style={styles.textMedium}>{item.latestPrice}</Text>
+            <Text style={styles.textMedium}>{item.latestPrice.toFixed(2)}</Text>
             <Text style={styles.textSmall} note>
-              B:{item.bidPrice}/A:{item.askPrice}
+              B:{item.iexBidPrice.toFixed(2)}
+            </Text>
+            <Text style={styles.textSmall} note>
+              A:{item.iexAskPrice.toFixed(2)}
             </Text>
           </View>
         </View>

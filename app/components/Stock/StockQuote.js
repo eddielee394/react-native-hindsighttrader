@@ -17,7 +17,6 @@ import {
   isPositiveChange,
 } from '../../utils/helpers';
 import { useSelector } from 'react-redux';
-import { LoadingScreen } from '../../screens';
 
 export function StockQuote(props) {
   const { updateTimestamp } = props;
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
   },
   quoteIcon: {
     fontSize: theme.dark.noteFontSize,
+    marginLeft: 5,
   },
   baContainer: {
     flex: 0,

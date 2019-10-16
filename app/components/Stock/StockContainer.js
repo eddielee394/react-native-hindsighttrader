@@ -19,33 +19,18 @@ import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import withReducer from '../../store/withReducer';
 
-const initialData = {
-  symbol: 'AAPL',
-};
-
 function StockContainer(props) {
-  const { symbol } = initialData;
+  const symbol = useSelector(({ stock }) => stock.data.symbol);
+  const companyInfo = useSelector(({ stock }) => stock.data.companyInfo);
 
   const dispatch = useDispatch();
-  const quote = useSelector(({ stock }) => stock.quote);
   const isLoading = useSelector(({ stock }) => stock.isLoading);
 
   useEffect(() => {
-    //make the first call to the api when the component is initially mounted, but don't do it again on any subsequent rerenders. We'll handle that in another hook.
     dispatch(Actions.getQuote(symbol));
-  }, [dispatch]);
+    dispatch(Actions.pollQuote(symbol, 5000));
 
-  useEffect(() => {
-    //now we fire the setTimeout & add the state dependency so it it triggers again after the initial update
-    const timerId = setInterval(() => {
-      dispatch(Actions.getQuote(symbol));
-    }, 5000);
-
-    return function cleanup() {
-      console.log('timer cleared', timerId, new Date());
-      clearInterval(timerId);
-    };
-  }, [dispatch]);
+  }, [dispatch, symbol]);
 
   const handleAddToWatchlist = () => {
     //TODO addtowatchlist
@@ -62,8 +47,8 @@ function StockContainer(props) {
           </Button>
         </Left>
         <Body>
-          <Title>{quote.symbol}</Title>
-          <Subtitle>{quote.companyName}</Subtitle>
+          <Title>{symbol}</Title>
+          <Subtitle>{companyInfo.companyName}</Subtitle>
         </Body>
         <Right>
           <Button transparent onPress={() => handleAddToWatchlist}>
@@ -75,7 +60,7 @@ function StockContainer(props) {
         </Right>
       </Header>
       <StockQuote />
-      <StockChart symbol={symbol} />
+      <StockChart />
     </Container>
   );
 }

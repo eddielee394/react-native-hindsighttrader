@@ -16,7 +16,7 @@ import {
   WatchlistScreen,
   WelcomeScreen,
 } from '../screens';
-import { BottomNavigation } from '../components/Navigation/BottomNavigation';
+import { BottomNavigation } from './BottomNavigation';
 
 export function RootNavigator() {
   return (
@@ -32,13 +32,6 @@ export function RootNavigator() {
             key="bottomNavigation"
             tabBarComponent={BottomNavigation}
             headerMode="none">
-            <Scene
-              key="stockScreen"
-              title="Stock"
-              icon="area-chart"
-              iconType="FontAwesome"
-              component={StockScreen}
-            />
             <Scene
               key="watchlistScreen"
               title="Watchlist"
@@ -88,6 +81,13 @@ export function RootNavigator() {
               onEnter={() => Actions.lightBoxScreen()}
               tabNav
               component={ComingSoonScreen}
+            />
+            <Scene
+              key="stockScreen"
+              title="Stock"
+              icon="area-chart"
+              iconType="FontAwesome"
+              component={StockScreen}
             />
           </Tabs>
         </Stack>
