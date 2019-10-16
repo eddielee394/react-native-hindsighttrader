@@ -3,7 +3,6 @@ import Api from '../../../../services/api';
 export const GET_WATCHLISTS = '[WATCHLISTS] GET WATCHLISTS';
 export const CREATE_WATCHLIST = '[WATCHLISTS] CREATE WATCHLIST';
 export const DELETE_WATCHLIST = '[WATCHLISTs] DELETE WATCHLIST';
-export const RESET_WATCHLISTS = '[WATCHLISTS] RESET WATCHLISTS';
 
 export function getWatchlists() {
   const request = Api.getWatchlists();
@@ -34,10 +33,3 @@ export function deleteWatchlist(id) {
     return dispatch({ type: DELETE_WATCHLIST, payload: id });
   };
 }
-
-// export function openWatchlist(id) {
-//   return {
-//     type: OPEN_WATCHLIST,
-//     payload: symbol,
-//   };
-// }

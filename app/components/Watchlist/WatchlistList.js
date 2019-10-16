@@ -20,7 +20,7 @@ import { images } from '../../assets/images';
 import theme from '../../theme';
 import Dialog from 'react-native-dialog';
 
-export const WatchlistList = props => {
+function WatchlistList(props) {
   const [damping] = useState(1 - 0.6);
   const [tension] = useState(300);
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -166,7 +166,7 @@ export const WatchlistList = props => {
       </Content>
     </Container>
   );
-};
+}
 
 const styles = StyleSheet.create({
   rowDrawerBackgroundColor: {
@@ -230,3 +230,5 @@ const styles = StyleSheet.create({
   dialogDescription: {},
   dialogInput: {},
 });
+
+export default WatchlistList;

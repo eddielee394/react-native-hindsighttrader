@@ -13,16 +13,18 @@ const watchlistReducer = (state = initialState, action) => {
   switch (action.type) {
     case Actions.GET_WATCHLIST:
       return { ...state, data: action.payload };
-    // return state;
-    // case Actions.OPEN_WATCHLIST:
-    //   const watchlist = Object.keys(data).map(d => {
-    //     return d.id === action.id;
-    //   });
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     data: _.keyBy(action.payload, 'id'),
-    //   };
+    case Actions.DELETE_WATCHLIST_SYMBOL:
+      let filteredSymbols = [];
+      filteredSymbols = state.data.symbols.filter(symbol => {
+        return symbol.toLowerCase() !== action.symbol.toLowerCase();
+      });
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          symbols: filteredSymbols,
+        },
+      };
     //
     // case Actions.UPDATE_WATCHLIST:
     //   return { ...state };

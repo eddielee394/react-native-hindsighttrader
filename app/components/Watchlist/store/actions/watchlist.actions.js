@@ -2,8 +2,12 @@ import Api from '../../../../services/api';
 
 export const GET_WATCHLIST = '[WATCHLIST] GET WATCHLIST';
 export const GET_WATCHLIST_DATA = '[WATCHLIST] GET WATCHLIST DATA';
+export const GET_WATCHLIST_DATA_SUCCESS =
+  '[WATCHLIST] GET WATCHLIST DATA SUCCESS';
+export const GET_WATCHLIST_DATA_ERROR = '[WATCHLIST] GET WATCHLIST DATA ERROR';
+export const DELETE_WATCHLIST_SYMBOL = '[WATCHLIST] DELETE WATCHLIST SYMBOL';
 export const COPY_WATCHLIST = '[WATCHLIST] COPY WATCHLIST';
-export const ORDER_LIST = '[WATCHLIST] ORDER LIST';
+// export const ORDER_WATCHLIST = '[WATCHLIST] ORDER LIST';
 
 export function getWatchlist(id) {
   const request = Api.getWatchlist(id);
@@ -18,51 +22,19 @@ export function getWatchlist(id) {
   };
 }
 
-export function getWatchlistData(id) {}
+export function getWatchlistData(id) {
+  const request = Api.getMarketBatchData();
+  return dispatch => {
+    dispatch({});
+  };
+}
 
-// export function openWatchlist(id) {
-//   return {
-//     type: OPEN_WATCHLIST,
-//     payload: symbol,
-//   };
-// }
-//
-// export function createWatchlist(watchlist) {
-//   const request = axios.post('/api/watchlists-app/create-watchlist', {
-//     watchlist,
-//   });
-//   return dispatch =>
-//     request.then(response => {
-//       dispatch({
-//         type: CREATE_WATCHLIST,
-//         watchlist: response.data,
-//       });
-//     });
-// }
-//
-// export function updateWatchlist(watchlist) {
-//   const request = axios.post('/api/watchlists-app/update-watchlist', {
-//     watchlist,
-//   });
-//
-//   return dispatch =>
-//     request.then(response =>
-//       dispatch({
-//         type: UPDATE_WATCHLIST,
-//         watchlist: response.data,
-//       }),
-//     );
-// }
-//
-// export function removeWatchlist(watchlistId) {
-//   const request = axios.post('/api/watchlists-app/remove-watchlist', {
-//     watchlistId,
-//   });
-//   return dispatch =>
-//     request.then(() => {
-//       dispatch({
-//         type: REMOVE_WATCHLIST,
-//         id: watchlistId,
-//       });
-//     });
-// }
+export function deleteWatchlistSymbol(symbol, id) {
+  return dispatch => {
+    dispatch({
+      type: DELETE_WATCHLIST_SYMBOL,
+      id,
+      symbol,
+    });
+  };
+}

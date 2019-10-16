@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Modal, TouchableHighlight } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions as RouteActions } from 'react-native-router-flux';
 import {
   Button,
   Container,
@@ -10,16 +13,13 @@ import {
   Title,
   View,
 } from 'native-base';
-import { WatchlistList } from './WatchlistList';
-import { useDispatch, useSelector } from 'react-redux';
+import WatchlistList from './WatchlistList';
+import WatchlistSymbolList from './WatchlistSymbolList';
 import * as Actions from './store/actions';
-import { Modal, TouchableHighlight } from 'react-native';
-import { WatchlistSymbolList } from './WatchlistSymbolList';
 
 function WatchlistContainer(props) {
   const [showModal, setShowModal] = useState(false);
 
-  const watchlists = useSelector(({ watchlists }) => watchlists.data);
   const watchlist = useSelector(({ watchlist }) => watchlist.data);
 
   const dispatch = useDispatch();
@@ -40,12 +40,12 @@ function WatchlistContainer(props) {
       </Modal>
     </Container>
   );
-  
+
   return (
     <Container>
       <Header>
         <Left>
-          <Button transparent>
+          <Button onPress={() => RouteActions.pop()} transparent>
             <Icon name="arrow-back" />
           </Button>
         </Left>
@@ -61,8 +61,8 @@ function WatchlistContainer(props) {
           </Button>
         </View>
         <Right>
-          <Button transparent>
-            <Icon name="ios-create" />
+          <Button onPress={() => RouteActions.searchScreen()} transparent>
+            <Icon name="search" />
           </Button>
         </Right>
       </Header>
