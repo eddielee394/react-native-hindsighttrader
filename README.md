@@ -53,6 +53,12 @@ Code quality, functionality and performance optimization will be improved over t
 - [ ] Add storybook support
 - [ ] Update documentation
 
+## Known Issues
+- Only tested on android.
+- There are some performance issues with the live data updates;
+- When creating a new watchlist, sometimes symbol list component doesn't rerender immediately.
+- Still issues with local state persistence, particularly with deeply nested state not being persisted correctly.
+
 ## Shoutouts
 - [Native Base][2] - UI Library
 - [Victory Charts][3] - Chart UI
