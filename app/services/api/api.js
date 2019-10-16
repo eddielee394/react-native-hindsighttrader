@@ -360,6 +360,10 @@ class Api {
     }
   };
 
+  /**
+   *
+   * @return {Promise<{data: *, message: string}|{temporary: boolean, message: string}|{temporary: boolean, message: string}|{message: string}|{temporary: boolean, message: string}|{message: string}|*|{data: *}>}
+   */
   getWatchlists = async () => {
     let response = await load('persist:root');
     response = { ...response, ...JSON.parse(response.data.watchlists) };
@@ -392,6 +396,11 @@ class Api {
     }
   };
 
+  /**
+   *
+   * @param id
+   * @return {Promise<{data: *, message: string}|{temporary: boolean, message: string}|{temporary: boolean, message: string}|{message: string}|{temporary: boolean, message: string}|{message: string}|*|{data: *}>}
+   */
   getWatchlist = async id => {
     let response = await load('persist:root');
 
@@ -432,6 +441,12 @@ class Api {
     }
   };
 
+  /**
+   *
+   * @param name
+   * @param symbols
+   * @return {Promise<{data: *, message: string}|{temporary: boolean, message: string}|{temporary: boolean, message: string}|{message: string}|{temporary: boolean, message: string}|{message: string}|*|{data: *}>}
+   */
   createWatchlist = async (name, symbols = []) => {
     const requestData = () => {
       return new Promise(resolve =>
@@ -467,8 +482,6 @@ class Api {
       return { message: 'bad-data', data: response.data };
     }
   };
-
-  updateWatchlist = async id => {};
 
   /**
    * Attempts to get a common cause of problems from an api response.

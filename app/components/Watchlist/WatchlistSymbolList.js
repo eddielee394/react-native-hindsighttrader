@@ -15,7 +15,6 @@ function WatchlistSymbolList(props) {
   const [damping] = useState(1 - 0.6);
   const [tension] = useState(300);
 
-  const watchlists = useSelector(({ watchlists }) => watchlists.data);
   const watchlist = useSelector(({ watchlist }) => watchlist);
   const data = useSelector(({ watchlist }) => watchlist.data);
   const dispatch = useDispatch();

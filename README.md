@@ -33,7 +33,7 @@ Code quality, functionality and performance optimization will be improved over t
 - [x] Add Api repository class for api service abstraction
 - [x] Add historical charts functionality
 - [x] Add real time quote data
-- [ ] Add watchlist crud
+- [x] Add watchlist crud
 - [ ] ~~Add mobx for global state management~~
 - [x] Add redux for global state management
 - [x] Add localstorage state persistence

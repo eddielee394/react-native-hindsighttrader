@@ -52,6 +52,5 @@ export function getChart(symbol, range) {
 }
 
 export function toggleRange(range) {
-  console.log('toggleRange', range);
   return dispatch => dispatch({ type: TOGGLE_RANGE, range });
 }

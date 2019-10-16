@@ -7,7 +7,7 @@ export const GET_WATCHLIST_DATA_SUCCESS =
   '[WATCHLIST] GET WATCHLIST DATA SUCCESS';
 export const GET_WATCHLIST_DATA_ERROR = '[WATCHLIST] GET WATCHLIST DATA ERROR';
 export const DELETE_WATCHLIST_SYMBOL = '[WATCHLIST] DELETE WATCHLIST SYMBOL';
-export const COPY_WATCHLIST = '[WATCHLIST] COPY WATCHLIST';
+export const ADD_WATCHLIST_SYMBOL = '[WATCHLIST] ADD WATCHLIST SYMBOL';
 // export const ORDER_WATCHLIST = '[WATCHLIST] ORDER LIST';
 
 export function getWatchlist(id) {
@@ -25,7 +25,7 @@ export function getWatchlist(id) {
 
 export function getWatchlistData(symbols) {
   const request = Api.getMarketBatchData(symbols);
-  
+
   return dispatch => {
     dispatch({
       type: GET_WATCHLIST_DATA,
@@ -54,6 +54,18 @@ export function deleteWatchlistSymbol(symbol, id) {
       type: DELETE_WATCHLIST_SYMBOL,
       id,
       symbol,
+    });
+  };
+}
+
+export function addWatchlistSymbol(symbol, id) {
+  return (dispatch, getState) => {
+    const watchlistId = id ? id : (id = getState().watchlist.id);
+
+    dispatch({
+      type: ADD_WATCHLIST_SYMBOL,
+      symbol,
+      watchlistId,
     });
   };
 }

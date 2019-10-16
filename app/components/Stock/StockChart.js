@@ -14,6 +14,7 @@ import { formatDateMonthDay } from '../../utils/helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from './store/actions';
 
+//TODO-EP move to constants
 const ranges = [
   { label: '1m', range: '1m' },
   { label: '3m', range: '3m' },

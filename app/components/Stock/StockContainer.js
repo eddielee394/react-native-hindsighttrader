@@ -1,4 +1,8 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions as RouteActions } from 'react-native-router-flux';
+import { StyleSheet } from 'react-native';
+import _ from 'lodash';
 import {
   Body,
   Button,
@@ -10,30 +14,34 @@ import {
   Subtitle,
   Title,
 } from 'native-base';
-import { StockChart } from './StockChart';
-import { Actions as RouteActions } from 'react-native-router-flux';
-import { StockQuote } from './StockQuote';
-import { LoadingScreen } from '../../screens';
-import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from './store/actions';
+import * as watchlistActions from '../Watchlist/store/actions';
 import reducer from './store/reducers';
 import withReducer from '../../store/withReducer';
+import { StockChart } from './StockChart';
+import { StockQuote } from './StockQuote';
+import { LoadingScreen } from '../../screens';
+import theme from '../../theme';
 
 function StockContainer(props) {
   const symbol = useSelector(({ stock }) => stock.data.symbol);
   const companyInfo = useSelector(({ stock }) => stock.data.companyInfo);
+  const isLoading = useSelector(({ stock }) => stock.isLoading);
+  const watchlist = useSelector(({ watchlist }) => watchlist);
 
   const dispatch = useDispatch();
-  const isLoading = useSelector(({ stock }) => stock.isLoading);
 
   useEffect(() => {
     dispatch(Actions.getQuote(symbol));
     dispatch(Actions.pollQuote(symbol, 5000));
-
   }, [dispatch, symbol]);
 
   const handleAddToWatchlist = () => {
-    //TODO addtowatchlist
+    dispatch(watchlistActions.addWatchlistSymbol(symbol));
+  };
+
+  const handleWatchlistIconStyles = () => {
+    return _.includes(watchlist.symbols, symbol) && styles.negative;
   };
 
   if (isLoading) return <LoadingScreen />;
@@ -51,8 +59,8 @@ function StockContainer(props) {
           <Subtitle>{companyInfo.companyName}</Subtitle>
         </Body>
         <Right>
-          <Button transparent onPress={() => handleAddToWatchlist}>
-            <Icon name="heart" active />
+          <Button transparent onPress={() => handleAddToWatchlist(symbol)}>
+            <Icon name="heart" active style={[handleWatchlistIconStyles()]} />
           </Button>
           <Button transparent onPress={() => RouteActions.searchScreen()}>
             <Icon name="more" />
@@ -64,5 +72,11 @@ function StockContainer(props) {
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  negative: {
+    color: theme.dark.red,
+  },
+});
 
 export default withReducer('stock', reducer)(StockContainer);
