@@ -15,8 +15,6 @@ export function getSymbols() {
     });
     request
       .then(response => {
-        console.tron.log('response', response);
-
         return dispatch({
           type: GET_SYMBOLS_SUCCESS,
           payload: response.data,

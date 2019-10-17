@@ -15,12 +15,14 @@ const message = function(state = initialState, action) {
         },
       };
     }
+
     case Actions.HIDE_MESSAGE: {
       return {
         ...state,
         state: null,
       };
     }
+
     default: {
       return state;
     }

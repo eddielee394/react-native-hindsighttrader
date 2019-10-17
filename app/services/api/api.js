@@ -367,7 +367,7 @@ class Api {
   getWatchlists = async () => {
     let response = await load('persist:root');
     response = { ...response, ...JSON.parse(response.data.watchlists) };
-
+    
     // the typical ways to die when calling an api
     if (!response.ok) {
       const error = this.getGeneralApiError(response);
@@ -395,52 +395,7 @@ class Api {
       return { message: 'bad-data', data: response };
     }
   };
-
-  /**
-   *
-   * @param id
-   * @return {Promise<{data: *, message: string}|{temporary: boolean, message: string}|{temporary: boolean, message: string}|{message: string}|{temporary: boolean, message: string}|{message: string}|*|{data: *}>}
-   */
-  getWatchlist = async id => {
-    let response = await load('persist:root');
-
-    const watchlistData = {
-      ...response,
-      ...JSON.parse(response.data.watchlists),
-    };
-
-    const watchlists = watchlistData.data;
-    const watchlistItem = _.find(watchlists, item => item.id === id);
-
-    response = { ...response, data: watchlistItem };
-
-    // the typical ways to die when calling an api
-    if (!response.ok) {
-      const error = this.getGeneralApiError(response);
-
-      if (error) {
-        console.log('Api problem', error);
-        return error;
-      }
-    }
-
-    const convertData = data => {
-      return {
-        id: data.id,
-        name: data.name,
-        symbols: data.symbols || [],
-      };
-    };
-
-    // transform the data into the format we are expecting
-    try {
-      const data = convertData(response.data);
-      return { data: data };
-    } catch {
-      return { message: 'bad-data', data: response };
-    }
-  };
-
+  
   /**
    *
    * @param name
