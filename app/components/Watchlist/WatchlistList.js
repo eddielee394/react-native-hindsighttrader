@@ -54,9 +54,8 @@ function WatchlistList(props) {
     return Alert.alert(title, message, buttons, options);
   };
 
-  const handleGetWatchlist = value => {
-    dispatch(Actions.getWatchlist(value));
-    handleShowModal();
+  const handleToggleWatchlist = id => {
+    dispatch(Actions.toggleWatchlist(id));
   };
 
   const handleAddWatchlist = () => {
@@ -89,7 +88,7 @@ function WatchlistList(props) {
         damping={damping}
         tension={tension}>
         <View style={styles.contentContainer}>
-          <TouchableOpacity onPress={() => handleGetWatchlist(item.id)}>
+          <TouchableOpacity onPress={() => handleToggleWatchlist(item.id)}>
             <View style={styles.iconLeftContainer}>
               {item.id === watchlist.id && (
                 <Icon

@@ -1,4 +1,5 @@
 import Api from '../../../../services/api';
+import _ from 'lodash';
 import { showMessage } from '../../../../store/actions';
 
 export const GET_WATCHLIST = '[WATCHLIST] GET WATCHLIST';
@@ -8,6 +9,8 @@ export const GET_WATCHLIST_DATA_SUCCESS =
 export const GET_WATCHLIST_DATA_ERROR = '[WATCHLIST] GET WATCHLIST DATA ERROR';
 export const DELETE_WATCHLIST_SYMBOL = '[WATCHLIST] DELETE WATCHLIST SYMBOL';
 export const ADD_WATCHLIST_SYMBOL = '[WATCHLIST] ADD WATCHLIST SYMBOL';
+export const TOGGLE_WATCHLIST = '[WATCHLISTS] TOGGLE WATCHLIST';
+
 // export const ORDER_WATCHLIST = '[WATCHLIST] ORDER LIST';
 
 export function getWatchlist(id) {
@@ -67,5 +70,20 @@ export function addWatchlistSymbol(symbol, id) {
       symbol,
       watchlistId,
     });
+  };
+}
+
+export function toggleWatchlist(id) {
+  return (dispatch, getState) => {
+    const data = _.find(
+      getState().watchlists.data,
+      watchlist => watchlist.id === id,
+    );
+
+    dispatch({
+      type: TOGGLE_WATCHLIST,
+      payload: data,
+    });
+
   };
 }

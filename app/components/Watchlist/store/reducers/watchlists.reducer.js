@@ -62,7 +62,7 @@ const watchlistsReducer = (state = initialState, action) => {
       };
 
       const _updatedWatchlists = _.map(_watchlists);
-      console.tron.log(_updatedWatchlists);
+      // console.tron.log(_updatedWatchlists);
       return { ...state, data: _updatedWatchlists };
 
     default:

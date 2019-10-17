@@ -13,11 +13,12 @@ const watchlistReducer = (state = initialState, action) => {
   switch (action.type) {
     case Actions.GET_WATCHLIST:
       return { ...state, ...action.payload };
+
     case Actions.DELETE_WATCHLIST_SYMBOL:
       let filteredSymbols = [];
-      filteredSymbols = state.symbols.filter(symbol => {
-        return symbol !== action.symbol;
-      });
+      filteredSymbols = state.symbols.filter(
+        symbol => symbol !== action.symbol,
+      );
       return {
         ...state,
         symbols: filteredSymbols,
@@ -25,10 +26,16 @@ const watchlistReducer = (state = initialState, action) => {
 
     case Actions.GET_WATCHLIST_DATA:
       return { ...state, isLoading: true };
+
     case Actions.GET_WATCHLIST_DATA_SUCCESS:
       return { ...state, data: action.payload };
+
     case Actions.ADD_WATCHLIST_SYMBOL:
       return { ...state, symbols: _.union(state.symbols, [action.symbol]) };
+
+    case Actions.TOGGLE_WATCHLIST:
+      return { ...state, ...action.payload };
+      
     default:
       return state;
   }

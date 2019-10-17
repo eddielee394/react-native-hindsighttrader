@@ -2,7 +2,7 @@ import Api from '../../../../services/api';
 
 export const GET_WATCHLISTS = '[WATCHLISTS] GET WATCHLISTS';
 export const CREATE_WATCHLIST = '[WATCHLISTS] CREATE WATCHLIST';
-export const DELETE_WATCHLIST = '[WATCHLISTs] DELETE WATCHLIST';
+export const DELETE_WATCHLIST = '[WATCHLISTS] DELETE WATCHLIST';
 
 export function getWatchlists() {
   const request = Api.getWatchlists();

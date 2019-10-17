@@ -21,7 +21,7 @@ function WatchlistSymbolList(props) {
 
   useEffect(() => {
     dispatch(watchlistActions.getWatchlistData(watchlist.symbols));
-  }, [dispatch]);
+  }, [dispatch, watchlist.symbols]);
 
   const handleGetSymbol = symbol => {
     dispatch(stockActions.setSymbol(symbol));

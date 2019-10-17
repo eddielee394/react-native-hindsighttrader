@@ -6,6 +6,7 @@
     "start": "react-native start",
     "react-devtools": "react-devtools",
     "test": "jest",
+    "clean-gradle": "cd android && gradlew clean && adb kill-server && yarn adb",
     "adb": "adb reverse tcp:9090 tcp:9090 && adb reverse tcp:3000 tcp:3000 && adb reverse tcp:9001 tcp:9001 && adb reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
