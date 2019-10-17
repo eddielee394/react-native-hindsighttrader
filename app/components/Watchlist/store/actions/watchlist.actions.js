@@ -14,14 +14,12 @@ export const TOGGLE_WATCHLIST = '[WATCHLISTS] TOGGLE WATCHLIST';
 // export const ORDER_WATCHLIST = '[WATCHLIST] ORDER LIST';
 
 export function getWatchlist(id) {
-  const request = Api.getWatchlist(id);
+  return (dispatch, getState) => {
+    const data = _.find(getState().watchlists, item => item.id === id);
 
-  return dispatch => {
-    request.then(response => {
-      return dispatch({
-        type: GET_WATCHLIST,
-        payload: response.data,
-      });
+    return dispatch({
+      type: GET_WATCHLIST,
+      payload: data,
     });
   };
 }
@@ -76,7 +74,7 @@ export function addWatchlistSymbol(symbol, id) {
 export function toggleWatchlist(id) {
   return (dispatch, getState) => {
     const data = _.find(
-      getState().watchlists.data,
+      getState().watchlists,
       watchlist => watchlist.id === id,
     );
 
@@ -84,6 +82,5 @@ export function toggleWatchlist(id) {
       type: TOGGLE_WATCHLIST,
       payload: data,
     });
-
   };
 }

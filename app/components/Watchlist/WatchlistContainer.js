@@ -5,6 +5,7 @@ import { Actions as RouteActions } from 'react-native-router-flux';
 import {
   Button,
   Container,
+  Content,
   Header,
   Icon,
   Left,
@@ -34,11 +35,9 @@ function WatchlistContainer(props) {
   };
 
   const _renderModal = () => (
-    <Container>
-      <Modal animationType="slide" transparent={true} visible={showModal}>
-        <WatchlistList handleShowModal={handleShowModal} />
-      </Modal>
-    </Container>
+    <Modal animationType="slide" transparent={true} visible={showModal}>
+      <WatchlistList handleShowModal={handleShowModal} />
+    </Modal>
   );
 
   return (
@@ -66,7 +65,9 @@ function WatchlistContainer(props) {
           </Button>
         </Right>
       </Header>
-      <WatchlistSymbolList />
+      <Content>
+        <WatchlistSymbolList />
+      </Content>
       {_renderModal()}
     </Container>
   );

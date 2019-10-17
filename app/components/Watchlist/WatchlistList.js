@@ -26,7 +26,7 @@ function WatchlistList(props) {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [watchlistName, setWatchlistName] = useState('');
 
-  const watchlists = useSelector(({ watchlists }) => watchlists.data);
+  const watchlists = useSelector(({ watchlists }) => watchlists);
   const watchlist = useSelector(({ watchlist }) => watchlist);
   const { handleShowModal } = props;
 
