@@ -20,7 +20,7 @@ const watchlistsReducer = (state = initialState, action) => {
       return [...state, ...action.payload];
 
     case Actions.CREATE_WATCHLIST:
-      return [...state, ...action.payload];
+      return [...state, action.payload];
 
     case Actions.DELETE_WATCHLIST:
       return { ..._.reject(state, { id: action.payload }) };
