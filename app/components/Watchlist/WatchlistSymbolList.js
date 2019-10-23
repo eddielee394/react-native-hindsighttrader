@@ -5,12 +5,11 @@ import { Actions as RouteActions } from 'react-native-router-flux';
 import { Container, Icon, Text, View } from 'native-base';
 import * as stockActions from '../Stock/store/actions';
 import * as watchlistActions from './store/actions';
-import SwipeableRow from '../UI/SwipeableRow';
 import LoadingScreen from '../../screens/LoadingScreen';
 import { images } from '../../assets/images';
 import theme from '../../theme';
+import SwipeableList from '../UI/SwipeableList';
 
-//TODO this whole component needs to be completely re-jiggered
 function WatchlistSymbolList(props) {
   const [damping] = useState(1 - 0.6);
   const [tension] = useState(300);
@@ -38,43 +37,50 @@ function WatchlistSymbolList(props) {
     (key, value) => data[key].quote,
   );
 
-  const _renderRows = () =>
-    formattedQuotes.map(item => (
-      <SwipeableRow
-        key={item.symbol}
+  const _renderItem = (data, rowMap) => {
+    const { item } = data;
+
+    return (
+      <View style={styles.contentContainer}>
+        <TouchableOpacity onPress={() => handleGetSymbol(item.symbol)}>
+          <View style={styles.iconLeftContainer}>
+            <Icon name="md-reorder" style={styles.icon} />
+          </View>
+        </TouchableOpacity>
+        <View style={styles.rowTitleContainer}>
+          <Text style={styles.rowTitle}>{item.symbol}</Text>
+          <Text style={styles.rowSubtitle}>{item.companyName}</Text>
+        </View>
+        <View style={styles.rowChartContainer}>
+          <Text note>Chart goes here</Text>
+        </View>
+        <View style={styles.contentRightContainer}>
+          <Text style={styles.textMedium}>{item.latestPrice.toFixed(2)}</Text>
+          <Text style={styles.textSmall} note>
+            B:{item.bidPrice.toFixed(2)}
+          </Text>
+          <Text style={styles.textSmall} note>
+            A:{item.askPrice.toFixed(2)}
+          </Text>
+        </View>
+      </View>
+    );
+  };
+
+  return (
+    <Container>
+      <SwipeableList
+        data={formattedQuotes}
+        rowItem={_renderItem}
         rowStyle={styles.rowStyle}
         drawerBackgroundColor={styles.rowDrawerBackgroundColor}
-        buttonCallback={() => handleDeleteSymbol(item.symbol)}
+        buttonCallback={data => handleDeleteSymbol(data)}
         buttonImage={images.iconTrash}
         damping={damping}
-        tension={tension}>
-        <View style={styles.contentContainer}>
-          <TouchableOpacity onPress={() => handleGetSymbol(item.symbol)}>
-            <View style={styles.iconLeftContainer}>
-              <Icon name="md-reorder" style={styles.icon} />
-            </View>
-          </TouchableOpacity>
-          <View style={styles.rowTitleContainer}>
-            <Text style={styles.rowTitle}>{item.symbol}</Text>
-            <Text style={styles.rowSubtitle}>{item.companyName}</Text>
-          </View>
-          <View style={styles.rowChartContainer}>
-            <Text note>Chart goes here</Text>
-          </View>
-          <View style={styles.contentRightContainer}>
-            <Text style={styles.textMedium}>{item.latestPrice.toFixed(2)}</Text>
-            <Text style={styles.textSmall} note>
-              B:{item.iexBidPrice.toFixed(2)}
-            </Text>
-            <Text style={styles.textSmall} note>
-              A:{item.iexAskPrice.toFixed(2)}
-            </Text>
-          </View>
-        </View>
-      </SwipeableRow>
-    ));
-
-  return <Container>{_renderRows()}</Container>;
+        tension={tension}
+      />
+    </Container>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -110,6 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderColor: theme.dark.listBorderColor,
+    backgroundColor: theme.dark.brandPrimary,
   },
   iconLeftContainer: {
     width: 40,

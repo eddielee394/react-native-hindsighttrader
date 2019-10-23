@@ -5892,11 +5892,6 @@ react-native-inappbrowser-reborn@^3.1.0:
     invariant "^2.2.4"
     opencollective-postinstall "^2.0.2"
 
-react-native-interactable@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-interactable/-/react-native-interactable-1.0.0.tgz#b6dcdff9ec61dfae9233e46e1d673ce8480a4f64"
-  integrity sha512-e/GyydV3nFWVL36frdM8H+wGxy5pJu0WjlN6dgtBIRCaGz7nLbCRWFINs7SRwIaI9LPXVAqEXQTOc2d5LJN4HA==
-
 react-native-iphone-x-helper@^1.0.3:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
@@ -5961,6 +5956,11 @@ react-native-svg@^9.11.1:
   version "9.11.1"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.11.1.tgz#b1ccf48de413ff8c4f476f202aaa3893f4c8b59a"
   integrity sha512-BmNCM81SSzhj1+N5rYiy7sxrkmybgiT8Cu8yVRB7zVoWze/i1lbCWJah+Gk0OHHwR35ZA31oVKf5jtO4G1n94Q==
+
+react-native-swipe-list-view@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-list-view/-/react-native-swipe-list-view-2.0.3.tgz#ab93a56d9f1126a486fa77d99de61ab4d44ba735"
+  integrity sha512-EmMJii/5ioEbZ9pEDjMPxa21s09RbuKfB5BxWlY3Tt4rMH9FkAp9/vji9FmdXcAdbfYtYdEXag1feOCcWtoLOw==
 
 react-native-tab-view@^0.0.77:
   version "0.0.77"

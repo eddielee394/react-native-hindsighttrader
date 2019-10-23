@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import {
   Body,
   Button,
@@ -15,10 +15,10 @@ import {
 } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from './store/actions';
-import SwipeableRow from '../UI/SwipeableRow';
 import { images } from '../../assets/images';
 import theme from '../../theme';
 import Dialog from 'react-native-dialog';
+import SwipeableList from '../UI/SwipeableList';
 
 function WatchlistList(props) {
   const [damping] = useState(1 - 0.6);
@@ -63,7 +63,9 @@ function WatchlistList(props) {
     setDialogVisible(false);
   };
 
-  const handleDeleteWatchlist = id => {
+  const handleDeleteWatchlist = data => {
+    const { id } = data;
+
     if (watchlist.id === id) {
       const content = {
         title: "Whoa! That's not gonna work...",
@@ -77,37 +79,31 @@ function WatchlistList(props) {
     );
   };
 
-  const _renderRows = () =>
-    watchlists.map(item => (
-      <SwipeableRow
-        key={item.id}
-        rowStyle={styles.rowStyle}
-        drawerBackgroundColor={styles.rowDrawerBackgroundColor}
-        buttonCallback={() => handleDeleteWatchlist(item.id)}
-        buttonImage={images.iconTrash}
-        damping={damping}
-        tension={tension}>
-        <View style={styles.contentContainer}>
-          <TouchableOpacity onPress={() => handleToggleWatchlist(item.id)}>
-            <View style={styles.iconLeftContainer}>
-              {item.id === watchlist.id && (
-                <Icon
-                  name="md-checkmark-circle-outline"
-                  style={styles.iconLeft}
-                />
-              )}
-            </View>
-          </TouchableOpacity>
-          <View>
-            <Text style={styles.rowTitle}>{item.name}</Text>
-            <Text style={styles.rowSubtitle}>Category</Text>
+  const _renderItem = (data, rowMap) => {
+    const { item } = data;
+
+    return (
+      <View style={styles.contentContainer}>
+        <TouchableOpacity onPress={() => handleToggleWatchlist(item.id)}>
+          <View style={styles.iconLeftContainer}>
+            {item.id === watchlist.id && (
+              <Icon
+                name="md-checkmark-circle-outline"
+                style={styles.iconLeft}
+              />
+            )}
           </View>
-          <View style={styles.iconRightContainer}>
-            <Icon name="md-reorder" style={styles.icon} />
-          </View>
+        </TouchableOpacity>
+        <View>
+          <Text style={styles.rowTitle}>{item.name}</Text>
+          <Text style={styles.rowSubtitle}>Category Placeholder</Text>
         </View>
-      </SwipeableRow>
-    ));
+        <View style={styles.iconRightContainer}>
+          <Icon name="md-reorder" style={styles.icon} />
+        </View>
+      </View>
+    );
+  };
 
   const _renderCreateDialogue = () => (
     <Dialog.Container
@@ -160,7 +156,13 @@ function WatchlistList(props) {
             <Text>Create Watchlist</Text>
           </Button>
         </Item>
-        {_renderRows()}
+        <SwipeableList
+          data={watchlists}
+          rowItem={_renderItem}
+          drawerBackgroundColor={styles.rowDrawerBackgroundColor}
+          buttonImage={images.iconTrash}
+          buttonCallback={data => handleDeleteWatchlist(data)}
+        />
         {_renderCreateDialogue()}
       </Content>
     </Container>
@@ -197,6 +199,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderColor: theme.dark.listBorderColor,
+    backgroundColor: theme.dark.brandPrimary,
   },
   iconLeftContainer: {
     width: 40,
