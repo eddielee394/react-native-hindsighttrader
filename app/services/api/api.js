@@ -145,14 +145,60 @@ class Api {
     }
 
     const convertData = data => {
-      //TODO-EP validate the data
-      return data;
+      const convertedData = {
+        news: data.news,
+        chart: data.chart,
+        quote: {
+          symbol: data.quote.symbol,
+          companyName: data.quote.companyName,
+          calculationPrice: data.quote.calculationPrice,
+          open: data.quote.open,
+          openTime: data.quote.openTime,
+          close: data.quote.close,
+          closeTime: data.quote.closeTime,
+          high: data.quote.high,
+          bidPrice: data.quote.iexBidPrice ?? 0,
+          bidSize: data.quote.iexBidSize ?? 0,
+          askPrice: data.quote.iexAskPrice ?? 0,
+          askSize: data.quote.iexAskSize ?? 0,
+          low: data.quote.low,
+          latestPrice: data.quote.latestPrice,
+          latestSource: data.quote.latestSource,
+          latestTime: data.quote.latestTime,
+          latestUpdate: data.quote.latestUpdate,
+          latestVolume: data.quote.latestVolume,
+          volume: data.quote.volume,
+          extendedPrice: data.quote.extendedPrice,
+          extendedChange: data.quote.extendedChange,
+          extendedChangePercent: data.quote.extendedChangePercent,
+          extendedPriceTime: data.quote.extendedPriceTime,
+          previousClose: data.quote.previousClose,
+          previousVolume: data.quote.previousVolume,
+          change: data.quote.change,
+          changePercent: data.quote.changePercent,
+          avgTotalVolume: data.quote.avgTotalVolume,
+          marketCap: data.quote.marketCap,
+          week52High: data.quote.week52High,
+          week52Low: data.quote.week52Low,
+          ytdChange: data.quote.ytdChange,
+          peRatio: data.quote.peRatio,
+          lastTradeTime: data.quote.lastTradeTime,
+          isUSMarketOpen: data.quote.isUSMarketOpen,
+        },
+      };
+
+      return convertedData;
     };
 
     // transform the data into the format we are expecting
     try {
-      // const rawData = _.values(response.data);
-      const data = convertData(response.data);
+      let data = {};
+      for (let key in response.data) {
+        if (response.data.hasOwnProperty(key)) {
+          data[key] = convertData(response.data[key]);
+        }
+      }
+
       return { message: 'ok', data };
     } catch {
       return { message: 'bad-data', data: response.data };
