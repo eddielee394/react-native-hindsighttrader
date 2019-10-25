@@ -138,6 +138,8 @@ class SwipeableList extends Component {
           previewRowKey={'0'}
           previewOpenValue={-40}
           previewOpenDelay={3000}
+          friction={4}
+          tension={30}
         />
       </View>
     );
