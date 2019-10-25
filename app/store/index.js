@@ -5,7 +5,7 @@ import createReducer from './reducers';
 import { persistStore, persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import AsyncStorage from '@react-native-community/async-storage';
-import Reactotron from 'reactotron-react-native';
+import Reactotron from '../config/reactotronConfig';
 
 // noinspection JSUnresolvedVariable
 /**
