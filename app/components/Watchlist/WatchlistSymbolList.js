@@ -35,7 +35,7 @@ function WatchlistSymbolList(props) {
   if (!data) return <LoadingScreen />;
 
   const formattedQuotes = Object.keys(data).map(
-    (key, value) => data[key].quote,
+    (key) => data[key].quote,
   );
 
   const _renderItem = (data, rowMap) => {

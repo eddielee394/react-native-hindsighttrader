@@ -1,5 +1,3 @@
-import './utils/fixTimerBug';
-
 import React from 'react';
 import { Provider } from 'react-redux';
 import { persistor, store } from './store';

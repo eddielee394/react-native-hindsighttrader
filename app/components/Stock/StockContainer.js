@@ -16,8 +16,6 @@ import {
 } from 'native-base';
 import * as Actions from './store/actions';
 import * as watchlistActions from '../Watchlist/store/actions';
-import reducer from './store/reducers';
-import withReducer from '../../store/withReducer';
 import { StockChart } from './StockChart';
 import { StockQuote } from './StockQuote';
 import { LoadingScreen } from '../../screens';
@@ -37,7 +35,7 @@ function StockContainer(props) {
   }, [dispatch, symbol]);
 
   const handleAddToWatchlist = () => {
-    dispatch(watchlistActions.addWatchlistSymbol(symbol));
+    return dispatch(watchlistActions.addWatchlistSymbol(symbol));
   };
 
   const handleWatchlistIconStyles = () => {
@@ -79,4 +77,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withReducer('stock', reducer)(StockContainer);
+export default StockContainer;

@@ -79,8 +79,8 @@ class Api {
 
   /**
    * Gets the chart data for a symbol. By default returns open, high, low & close per defined interval.
-   * TODO-HT Add example in docbloc
-   * TODO-HT add data type validations
+   * TODO-EP Add example in docbloc
+   * TODO-EP add data type validations
    * @param {string} symbol company ticker symbol
    * @param {string} range chart range 1d|5d|1m|3m|6m|1y
    * @param {number} interval number of minutes
@@ -241,8 +241,8 @@ class Api {
 
   /**
    * Gets historical price data for a single symbol
-   * TODO-HT Add example in docbloc
-   * TODO-HT add data type validations
+   * TODO-EP Add example in docbloc
+   * TODO-EP add data type validations
    * @param {string} symbol company ticker symbol
    * @param {string} range time range of data
    * @param {object} options optional paramters
@@ -267,8 +267,8 @@ class Api {
 
   /**
    * Gets the company info for a single symbol
-   * TODO-HT Add example in docbloc
-   * TODO-HT add data type validations
+   * TODO-EP Add example in docbloc
+   * TODO-EP add data type validations
    * @param {string} symbol company ticker symbol
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example
@@ -291,8 +291,8 @@ class Api {
 
   /**
    * Gets an array of quotes for up to 10 symbols in a collection
-   * TODO-HT Add example in docbloc
-   * TODO-HT add data type validations
+   * TODO-EP Add example in docbloc
+   * TODO-EP add data type validations
    * @param collection
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example
@@ -314,8 +314,8 @@ class Api {
 
   /**
    * Gets financial information for a single symbol
-   * TODO-HT Add example in docbloc
-   * TODO-HT add data type validations
+   * TODO-EP Add example in docbloc
+   * TODO-EP add data type validations
    * @param {string} symbol company ticker symbol
    * @return {Promise<ApiResponse<T>|ApiErrorResponse<T>|ApiOkResponse<boolean>>}
    * @example
@@ -338,8 +338,8 @@ class Api {
 
   /**
    * Gets the url to a png image of the logo for a single symbol
-   * TODO-HT Add example in docbloc
-   * TODO-HT add data type validations
+   * TODO-EP Add example in docbloc
+   * TODO-EP add data type validations
    * @param {string} symbol company ticker symbol
    * @return {Promise<{data: *, message: string}>}
    * @example
@@ -413,7 +413,7 @@ class Api {
   getWatchlists = async () => {
     let response = await load('persist:root');
     response = { ...response, ...JSON.parse(response.data.watchlists) };
-    
+
     // the typical ways to die when calling an api
     if (!response.ok) {
       const error = this.getGeneralApiError(response);
@@ -441,7 +441,7 @@ class Api {
       return { message: 'bad-data', data: response };
     }
   };
-  
+
   /**
    *
    * @param name

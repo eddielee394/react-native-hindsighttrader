@@ -51,7 +51,7 @@ export function getWatchlistData(symbols) {
 
 export function deleteWatchlistSymbol(symbol, id) {
   return dispatch => {
-    dispatch({
+    return dispatch({
       type: DELETE_WATCHLIST_SYMBOL,
       id,
       symbol,
@@ -63,7 +63,7 @@ export function addWatchlistSymbol(symbol, id) {
   return (dispatch, getState) => {
     const watchlistId = id ? id : (id = getState().watchlist.id);
 
-    dispatch({
+    return dispatch({
       type: ADD_WATCHLIST_SYMBOL,
       symbol,
       watchlistId,
@@ -78,7 +78,7 @@ export function toggleWatchlist(id) {
       watchlist => watchlist.id === id,
     );
 
-    dispatch({
+    return dispatch({
       type: TOGGLE_WATCHLIST,
       payload: data,
     });

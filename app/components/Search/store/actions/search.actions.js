@@ -21,7 +21,7 @@ export function getSymbols() {
         });
       })
       .catch(error => {
-        console.tron.log(error.message);
+
         dispatch({
           type: GET_SYMBOLS_ERROR,
           payload: error.message,
