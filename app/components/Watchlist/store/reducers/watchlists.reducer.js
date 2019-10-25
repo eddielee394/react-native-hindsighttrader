@@ -23,7 +23,7 @@ const watchlistsReducer = (state = initialState, action) => {
       return [...state, action.payload];
 
     case Actions.DELETE_WATCHLIST:
-      return { ..._.reject(state, { id: action.payload }) };
+      return [..._.reject(state, { id: action.payload })];
 
     case Actions.DELETE_WATCHLIST_SYMBOL:
       let watchlists = _.keyBy(state, 'id');

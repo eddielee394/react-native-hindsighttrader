@@ -33,17 +33,17 @@ const composeEnhancers =
 const enhancer = composeEnhancers(applyMiddleware, Reactotron.createEnhancer());
 
 const persistConfig = {
-  key: 'root',
+  key: 'primary',
   storage: AsyncStorage,
-  stateReconciler: autoMergeLevel2,
+  blacklist: ['search', 'message', 'stock'],
   timeout: 0,
 };
 
 const persistedReducer = persistReducer(persistConfig, createReducer());
-const store = createStore(persistedReducer, enhancer);
+let store = createStore(persistedReducer, enhancer);
 
 store.asyncReducers = {};
-const persistor = persistStore(store);
+let persistor = persistStore(store);
 
 export const injectReducer = (key, reducer) => {
   if (store.asyncReducers[key]) {
@@ -55,5 +55,5 @@ export const injectReducer = (key, reducer) => {
 };
 
 persistor.persist();
-// persistor.purge();
+
 export { store, persistor };

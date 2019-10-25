@@ -27,7 +27,8 @@ function WatchlistSymbolList(props) {
     RouteActions.stockScreen();
   };
 
-  const handleDeleteSymbol = symbol => {
+  const handleDeleteSymbol = data => {
+    const { symbol } = data;
     dispatch(watchlistActions.deleteWatchlistSymbol(symbol, watchlist.id));
   };
 
