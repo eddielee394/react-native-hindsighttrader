@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions as RouteActions } from 'react-native-router-flux';
-import { StyleSheet } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 import _ from 'lodash';
 import {
   Body,
   Button,
-  Container,
   Header,
   Icon,
   Left,
   Right,
   Subtitle,
+  Tab,
+  Tabs,
+  Text,
   Title,
 } from 'native-base';
 import * as Actions from './store/actions';
@@ -19,6 +21,8 @@ import * as watchlistActions from '../Watchlist/store/actions';
 import { StockChart } from './StockChart';
 import { StockQuote } from './StockQuote';
 import { LoadingScreen } from '../../screens';
+import { StockNews } from './tabs/StockNews';
+import { TabBar } from '../UI/TabBar';
 import theme from '../../theme';
 
 function StockContainer(props) {
@@ -26,8 +30,9 @@ function StockContainer(props) {
   const companyInfo = useSelector(({ stock }) => stock.data.companyInfo);
   const isLoading = useSelector(({ stock }) => stock.isLoading);
   const watchlist = useSelector(({ watchlist }) => watchlist);
-
   const dispatch = useDispatch();
+
+  const nativeScroll = new Animated.Value(0);
 
   useEffect(() => {
     dispatch(Actions.getQuote(symbol));
@@ -42,10 +47,17 @@ function StockContainer(props) {
     return _.includes(watchlist.symbols, symbol) && styles.negative;
   };
 
+  const handleScrollEvent = Animated.event(
+    [{ nativeEvent: { contentOffset: { y: nativeScroll } } }],
+    {
+      useNativeDriver: true,
+    },
+  );
+
   if (isLoading) return <LoadingScreen />;
 
   return (
-    <Container>
+    <Animated.ScrollView onScroll={handleScrollEvent}>
       <Header>
         <Left>
           <Button transparent onPress={() => RouteActions.pop()}>
@@ -67,13 +79,59 @@ function StockContainer(props) {
       </Header>
       <StockQuote />
       <StockChart />
-    </Container>
+      <Tabs
+        style={styles.tabsContainer}
+        renderTabBar={props => (
+          <TabBar
+            style={styles.tabBarContainer}
+            nativeScroll={nativeScroll}
+            scrollHeight={405}
+            tabBarStyle={styles.tabBar}
+            tabStyle={styles.tabHeading}
+            backgroundColor={theme.dark.blue2}
+            tabHeadingTextStyle={styles.tabHeadingText}
+            tabHeadingUnderlineStyle={styles.tabHeadingUnderline}
+          />
+        )}>
+        <Tab heading="News" style={styles.tab}>
+          <StockNews />
+        </Tab>
+        <Tab heading="Fundamentals">
+          <Text>Fundamentals</Text>
+        </Tab>
+        <Tab heading="Profile">
+          <Text>Company Profile</Text>
+        </Tab>
+      </Tabs>
+    </Animated.ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   negative: {
     color: theme.dark.red,
+  },
+  tabBarContainer: {
+    borderWidth: 0,
+  },
+  tabBar: {
+    backgroundColor: theme.dark.blue2,
+  },
+  tabsContainer: {
+    marginTop: 15,
+    // height: 40,
+  },
+  tabHeading: {
+    flex: 1,
+    height: 40,
+    backgroundColor: theme.dark.blue2,
+  },
+  tabHeadingText: { color: theme.dark.textColor },
+  tabHeadingUnderline: {
+    backgroundColor: theme.dark.orange,
+  },
+  tab: {
+    padding: 15,
   },
 });
 
