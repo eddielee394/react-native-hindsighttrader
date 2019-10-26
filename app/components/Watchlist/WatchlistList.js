@@ -21,8 +21,6 @@ import Dialog from 'react-native-dialog';
 import SwipeableList from '../UI/SwipeableList';
 
 function WatchlistList(props) {
-  const [damping] = useState(1 - 0.6);
-  const [tension] = useState(300);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [watchlistName, setWatchlistName] = useState('');
 
