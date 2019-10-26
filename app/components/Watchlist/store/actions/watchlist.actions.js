@@ -24,8 +24,8 @@ export function getWatchlist(id) {
   };
 }
 
-export function getWatchlistData(symbols) {
-  const request = Api.getMarketBatchData(symbols);
+export function getWatchlistData(symbols, types = null, options = null) {
+  const request = Api.getMarketBatchData(symbols, types, options);
 
   return dispatch => {
     dispatch({

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions as RouteActions } from 'react-native-router-flux';
@@ -6,20 +6,22 @@ import { Container, Icon, Text, View } from 'native-base';
 import * as stockActions from '../Stock/store/actions';
 import * as watchlistActions from './store/actions';
 import LoadingScreen from '../../screens/LoadingScreen';
+import SwipeableList from '../UI/SwipeableList';
+import { WatchlistChart } from './WatchlistChart';
 import { images } from '../../assets/images';
 import theme from '../../theme';
-import SwipeableList from '../UI/SwipeableList';
 
 function WatchlistSymbolList(props) {
-  const [damping] = useState(1 - 0.6);
-  const [tension] = useState(300);
-
   const watchlist = useSelector(({ watchlist }) => watchlist);
   const data = useSelector(({ watchlist }) => watchlist.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(watchlistActions.getWatchlistData(watchlist.symbols));
+    dispatch(
+      watchlistActions.getWatchlistData(watchlist.symbols, ['quote', 'chart'], {
+        range: '3M',
+      }),
+    );
   }, [dispatch, watchlist.symbols]);
 
   const handleGetSymbol = symbol => {
@@ -34,34 +36,36 @@ function WatchlistSymbolList(props) {
 
   if (!data) return <LoadingScreen />;
 
-  const formattedQuotes = Object.keys(data).map(
-    (key) => data[key].quote,
-  );
+  const formattedData = Object.keys(data).map(key => data[key]);
 
   const _renderItem = (data, rowMap) => {
     const { item } = data;
 
     return (
       <View style={styles.contentContainer}>
-        <TouchableOpacity onPress={() => handleGetSymbol(item.symbol)}>
+        <TouchableOpacity onPress={() => handleGetSymbol(item.quote.symbol)}>
           <View style={styles.iconLeftContainer}>
             <Icon name="md-reorder" style={styles.icon} />
           </View>
         </TouchableOpacity>
         <View style={styles.rowTitleContainer}>
-          <Text style={styles.rowTitle}>{item.symbol}</Text>
-          <Text style={styles.rowSubtitle}>{item.companyName}</Text>
+          <Text style={styles.rowTitle}>{item.quote.symbol}</Text>
+          <Text numberOfLines={1} style={styles.rowSubtitle}>
+            {item.quote.companyName}
+          </Text>
         </View>
         <View style={styles.rowChartContainer}>
-          <Text note>Chart goes here</Text>
+          <WatchlistChart data={item.chart} />
         </View>
         <View style={styles.contentRightContainer}>
-          <Text style={styles.textMedium}>{item.latestPrice.toFixed(2)}</Text>
-          <Text style={styles.textSmall} note>
-            B:{item.bidPrice.toFixed(2)}
+          <Text style={styles.textMedium}>
+            {item.quote.latestPrice.toFixed(2)}
           </Text>
           <Text style={styles.textSmall} note>
-            A:{item.askPrice.toFixed(2)}
+            B:{item.quote.bidPrice.toFixed(2)}
+          </Text>
+          <Text style={styles.textSmall} note>
+            A:{item.quote.askPrice.toFixed(2)}
           </Text>
         </View>
       </View>
@@ -71,14 +75,12 @@ function WatchlistSymbolList(props) {
   return (
     <Container>
       <SwipeableList
-        data={formattedQuotes}
+        data={formattedData}
         rowItem={_renderItem}
         rowStyle={styles.rowStyle}
         drawerBackgroundColor={styles.rowDrawerBackgroundColor}
         buttonCallback={data => handleDeleteSymbol(data)}
         buttonImage={images.iconTrash}
-        damping={damping}
-        tension={tension}
       />
     </Container>
   );
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   rowSubtitle: {
-    fontSize: 14,
+    fontSize: 12,
     color: 'gray',
   },
   buttonContainer: {
@@ -144,14 +146,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   rowChartContainer: {
-    flex: 3,
-    height: 50,
-    marginHorizontal: 20,
+    flex: 7,
+    height: 60,
+    marginLeft: 10,
     borderColor: theme.dark.blue2,
-    borderWidth: 1,
-    backgroundColor: theme.dark.blue1,
+    // borderWidth: 1,
+    // backgroundColor: theme.dark.blue1,
     justifyContent: 'center',
     alignItems: 'center',
+    // maxWidth: '100%',
   },
   textSmall: {
     fontSize: 12,
