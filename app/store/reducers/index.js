@@ -4,6 +4,7 @@ import watchlists from '../../components/Watchlist/store/reducers/watchlists.red
 import watchlist from '../../components/Watchlist/store/reducers/watchlist.reducer';
 import stock from '../../components/Stock/store/reducers';
 import search from '../../components/Search/store/reducers';
+
 const createReducer = asyncReducers =>
   combineReducers({
     message,

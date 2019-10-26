@@ -206,6 +206,52 @@ class Api {
   };
 
   /**
+   * Gets batched data for multiple symbols based on an array of data types to be returned.
+   * @param {string} symbol company ticker symbol
+   * @param {object|null} options optional parameters
+   * @return {Promise<ApiErrorResponse<T>|ApiOkResponse<boolean>>}
+   * @example getSymbolNews('aapl','1d',30)
+   */
+  getSymbolNews = async (symbol, options = null) => {
+    const response = await this.api.getNews(symbol, options);
+
+    if (!response.ok) {
+      const error = this.getGeneralApiError(response);
+
+      if (error) {
+        console.log('Api problem', error);
+        return Promise.reject(error);
+      }
+    }
+
+    const convertData = data => {
+      const convertedData = {
+        timestamp: data.datetime,
+        title: data.headline,
+        source: data.source,
+        url: data.url,
+        summary: data.summary,
+        related: data.related,
+        image: data.image,
+        lang: data.lang,
+        hasPaywall: data.hasPaywall,
+      };
+
+      return convertedData;
+    };
+
+    // transform the data into the format we are expecting
+    try {
+      let data = response.data;
+      data = data.map(item => convertData(item));
+      console.tron.log('data', data);
+
+      return { message: 'ok', data };
+    } catch {
+      return { message: 'bad-data', data: response.data };
+    }
+  };
+  /**
    * Gets the latest price for a single symbol
    * @return {Promise<{message: string}>}
    * @param symbol

@@ -77,8 +77,6 @@ export function StockChart(props) {
             positive: svgStyles.positive,
             negative: svgStyles.negative,
           }}
-          y="close"
-          x="label"
         />
       </VictoryChart>
     </Item>

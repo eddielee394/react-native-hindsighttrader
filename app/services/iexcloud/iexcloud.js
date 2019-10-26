@@ -99,6 +99,18 @@ class Iexcloud {
     this._api.get(`/stock/${symbol}/quote`, {
       ...options,
     });
+  
+    /**
+   * Gets the quote data for a single symbol
+   * @param {string} symbol company ticker symbol
+   * @param {object} options optional parameters
+   * @return {Promise<ApiErrorResponse<T>|ApiOkResponse<boolean>>}
+   * @example https://www.iexcloud.io/docs/api/#quote
+   */
+  getNews = (symbol, options = null) =>
+    this._api.get(`/stock/${symbol}/news`, {
+      ...options,
+    });
 
   /**
    * Gets quote data for a symbol by field
