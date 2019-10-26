@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Body, Icon, Input, Item, Left, ListItem, Text } from 'native-base';
-import { StyleSheet } from 'react-native';
+import {
+  Body,
+  Icon,
+  Input,
+  Item,
+  Left,
+  ListItem,
+  Text,
+  View,
+} from 'native-base';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import theme from '../../theme';
 import Autocomplete from 'native-base-autocomplete';
 import { useDispatch, useSelector } from 'react-redux';
 import * as stockActions from '../Stock/store/actions';
 import * as searchActions from './store/actions';
+import * as watchlistActions from '../Watchlist/store/actions';
 import { Actions as RouteActions } from 'react-native-router-flux';
+import _ from 'lodash';
 
 function SearchContainer() {
   const [query, setQuery] = useState('');
   const results = useSelector(({ search }) => search.data.results);
+  const watchlist = useSelector(({ watchlist }) => watchlist);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,6 +44,22 @@ function SearchContainer() {
     setQuery(q);
   };
 
+  const handleAddToWatchlist = symbol => {
+    return dispatch(watchlistActions.addWatchlistSymbol(symbol));
+  };
+
+  const handleWatchlistIconStyles = symbol => {
+    return _.includes(watchlist.symbols, symbol)
+      ? styles.negative
+      : styles.positive;
+  };
+
+  const renderWatchlistIcon = symbol => {
+    return _.includes(watchlist.symbols, symbol)
+      ? 'md-remove-circle-outline'
+      : 'md-add-circle-outline';
+  };
+
   const _renderInput = props => {
     return (
       <Item>
@@ -46,12 +74,20 @@ function SearchContainer() {
       <ListItem
         key={result.symbol}
         onPress={() => handleSelectItem(result.symbol)}>
-        <Left>
+        <Left style={styles.leftContainer}>
           <Text>{result.symbol}</Text>
         </Left>
-        <Body>
-          <Text>{result.companyName}</Text>
+        <Body style={styles.bodyContainer}>
+          <Text numberOfLines={2}>{result.companyName}</Text>
         </Body>
+        <View styl={styles.rightContainer}>
+          <TouchableOpacity onPress={() => handleAddToWatchlist(result.symbol)}>
+            <Icon
+              name={renderWatchlistIcon(result.symbol)}
+              style={[handleWatchlistIconStyles(result.symbol), styles.icon]}
+            />
+          </TouchableOpacity>
+        </View>
       </ListItem>
     );
   };
@@ -75,9 +111,31 @@ function SearchContainer() {
 }
 
 const styles = StyleSheet.create({
+  positive: { color: theme.dark.green },
+  negative: { color: theme.dark.red },
   listContainer: {
     backgroundColor: theme.containerBgColor,
     position: 'relative',
+  },
+  icon: {
+    fontSize: 36,
+    marginLeft: 10,
+  },
+  iconRight: {
+    color: theme.dark.orange,
+  },
+  leftContainer: {
+    flex: 1,
+  },
+  bodyContainer: {
+    flex: 4,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  rightContainer: {
+    flex: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

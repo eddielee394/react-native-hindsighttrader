@@ -30,7 +30,7 @@ function WatchlistSymbolList(props) {
   };
 
   const handleDeleteSymbol = data => {
-    const { symbol } = data;
+    const { symbol } = data.quote;
     dispatch(watchlistActions.deleteWatchlistSymbol(symbol, watchlist.id));
   };
 

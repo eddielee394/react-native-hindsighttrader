@@ -47,13 +47,32 @@ const watchlistsReducer = (state = initialState, action) => {
     case Actions.ADD_WATCHLIST_SYMBOL:
       let _watchlists = _.keyBy(state, 'id');
 
-      _watchlists = {
-        ..._watchlists,
-        [action.watchlistId]: {
-          ..._watchlists[action.watchlistId],
-          symbols: [..._watchlists[action.watchlistId].symbols, action.symbol],
-        },
-      };
+      const index = _watchlists[action.watchlistId].symbols.findIndex(
+        symbol => symbol === action.symbol,
+      );
+
+      _watchlists =
+        index !== -1
+          ? {
+              ..._watchlists,
+              [action.watchlistId]: {
+                ..._watchlists[action.watchlistId],
+                symbols: [
+                  ..._watchlists[action.watchlistId].symbols.slice(0, index),
+                  ..._watchlists[action.watchlistId].symbols.slice(index, +1),
+                ],
+              },
+            }
+          : {
+              ..._watchlists,
+              [action.watchlistId]: {
+                ..._watchlists[action.watchlistId],
+                symbols: [
+                  ..._watchlists[action.watchlistId].symbols,
+                  action.symbol,
+                ],
+              },
+            };
 
       const _updatedWatchlists = _.map(_watchlists);
 

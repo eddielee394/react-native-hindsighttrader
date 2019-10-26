@@ -14,6 +14,34 @@ const watchlistReducer = (state = initialState, action) => {
     case Actions.GET_WATCHLIST:
       return { ...state, ...action.payload };
 
+    case Actions.GET_WATCHLIST_DATA:
+      return { ...state, isLoading: true };
+
+    case Actions.GET_WATCHLIST_DATA_SUCCESS:
+      return { ...state, data: { ...state.data, ...action.payload } };
+
+    case Actions.ADD_WATCHLIST_SYMBOL:
+      const index = state.symbols.findIndex(symbol => symbol === action.symbol);
+
+      const data = _.has(state.data, action.symbol)
+        ? _.omit(state.data, action.symbol)
+        : state.data;
+
+      return index !== -1
+        ? {
+            ...state,
+            symbols: [
+              ...state.symbols.slice(0, index),
+              ...state.symbols.slice(index + 1),
+            ],
+            data: data,
+          }
+        : {
+            ...state,
+            symbols: [...state.symbols, action.symbol],
+            data: data,
+          };
+
     case Actions.DELETE_WATCHLIST_SYMBOL:
       let filteredSymbols = [];
       filteredSymbols = state.symbols.filter(
@@ -27,25 +55,6 @@ const watchlistReducer = (state = initialState, action) => {
         symbols: filteredSymbols,
         data: filteredData,
       };
-
-    case Actions.GET_WATCHLIST_DATA:
-      return { ...state, isLoading: true };
-
-    case Actions.GET_WATCHLIST_DATA_SUCCESS:
-      return { ...state, data: { ...state.data, ...action.payload } };
-
-    case Actions.ADD_WATCHLIST_SYMBOL:
-      const index = state.symbols.findIndex(symbol => symbol === action.symbol);
-      
-      return index !== -1
-        ? {
-            ...state,
-            symbols: [
-              ...state.symbols.slice(0, index),
-              ...state.symbols.slice(index + 1),
-            ],
-          }
-        : { ...state, symbols: [...state.symbols, action.symbol] };
 
     case Actions.TOGGLE_WATCHLIST:
       return {
