@@ -52,12 +52,14 @@ Code quality, functionality and performance optimization will be improved over t
 - [ ] Performance optimizations
 - [ ] Add storybook support
 - [ ] Update documentation
+- [ ] Add real time paper trading functionality & mock portfolio management
 
 ## Known Issues
 - Only tested on android.
-- There are some performance issues with the live data updates;
-- When creating a new watchlist, sometimes symbol list component doesn't rerender immediately.
-- Still issues with local state persistence, particularly with deeply nested state not being persisted correctly.
+- ~~There are some performance issues with the live data updates;~~
+- ~~When creating a new watchlist, sometimes symbol list component doesn't rerender immediately.~~
+- ~~Still issues with local state persistence, particularly with deeply nested state not being persisted correctly.~~
+- Performance issues with charts on WatchlistList view;
 
 ## Shoutouts
 - [Native Base][2] - UI Library
