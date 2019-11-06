@@ -12,16 +12,25 @@ import {
 export function StockQuote(props) {
   const { updateTimestamp } = props;
   const quote = useSelector(({ stock }) => stock.quote.data);
+  const {
+    latestPrice,
+    change,
+    changePercent,
+    bidPrice,
+    bidSize,
+    askPrice,
+    askSize,
+  } = quote;
 
   const handlePosNegStyle = val => {
     return val < 0 ? styles.negative : styles.positive;
   };
 
-  const _renderQuoteChangeIcon = isPositiveChange(quote.change)
+  const _renderQuoteChangeIcon = isPositiveChange(change)
     ? 'caretup'
     : 'caretdown';
 
-  if (!quote.latestPrice)
+  if (!latestPrice)
     return (
       <View style={styles.container}>
         <Spinner style={styles.spinner} />
@@ -33,27 +42,27 @@ export function StockQuote(props) {
       <View style={styles.quoteDataContainer}>
         <Left style={styles.quoteContainer}>
           <Title>
-            {quote.latestPrice ?? <Spinner />}{' '}
+            {latestPrice ?? <Spinner />}{' '}
             <Icon
               name={_renderQuoteChangeIcon}
               type="AntDesign"
-              style={[handlePosNegStyle(quote.change), styles.quoteIcon]}
+              style={[handlePosNegStyle(change), styles.quoteIcon]}
             />
           </Title>
-          <Subtitle note style={handlePosNegStyle(quote.change)}>
-            {quote.change} ({formatPercent(quote.changePercent)})
+          <Subtitle note style={handlePosNegStyle(change)}>
+            {change} ({formatPercent(changePercent)})
           </Subtitle>
         </Left>
         <Right style={styles.baContainer}>
-          <Text style={styles.baPrice}>{quote.bidPrice}</Text>
+          <Text style={styles.baPrice}>{bidPrice}</Text>
           <Text note style={styles.baSize}>
-            Bid Size: {quote.bidSize}
+            Bid Size: {bidSize}
           </Text>
         </Right>
         <Right style={styles.baContainer}>
-          <Text style={styles.baPrice}>{quote.askPrice}</Text>
+          <Text style={styles.baPrice}>{askPrice}</Text>
           <Text note style={styles.baSize}>
-            Ask Size: {quote.askSize}
+            Ask Size: {askSize}
           </Text>
         </Right>
       </View>

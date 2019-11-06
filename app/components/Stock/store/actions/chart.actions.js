@@ -5,26 +5,24 @@ export const GET_CHART_SUCCESS = '[STOCK] GET CHART SUCCESS';
 export const GET_CHART_ERROR = '[STOCK] GET CHART ERROR';
 export const TOGGLE_RANGE = '[STOCK] TOGGLE RANGE';
 
-export const RANGE_1DAY = {
-  label: '',
-  value: '1d',
-};
-
-export const RANGE_1MONTH = {
-  label: '1m',
-  range: '1m',
-};
-export const RANGE_3MONTH = {
-  label: '3m',
-  range: '3m',
-};
-export const RANGE_6MONTH = {
-  label: '6m',
-  range: '6m',
-};
-export const RANGE_1YEAR = {
-  label: '1y',
-  range: '1y',
+//Todo need to figure out what to do with these Range constants
+export const RANGE = {
+  oneMonth: {
+    label: '1m',
+    range: '1m',
+  },
+  threeMonths: {
+    label: '3m',
+    range: '3m',
+  },
+  sixMonths: {
+    label: '6m',
+    range: '6m',
+  },
+  oneYear: {
+    label: '1y',
+    range: '1y',
+  },
 };
 
 export function getChart(symbol, range) {

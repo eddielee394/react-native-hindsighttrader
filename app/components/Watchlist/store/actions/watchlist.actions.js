@@ -1,5 +1,5 @@
 import Api from '../../../../services/api';
-import _ from 'lodash';
+import { find } from 'lodash';
 import { showMessage } from '../../../../store/actions';
 
 export const GET_WATCHLIST = '[WATCHLIST] GET WATCHLIST';
@@ -15,7 +15,7 @@ export const TOGGLE_WATCHLIST = '[WATCHLISTS] TOGGLE WATCHLIST';
 
 export function getWatchlist(id) {
   return (dispatch, getState) => {
-    const data = _.find(getState().watchlists, item => item.id === id);
+    const data = find(getState().watchlists, item => item.id === id);
 
     return dispatch({
       type: GET_WATCHLIST,
@@ -73,7 +73,7 @@ export function addWatchlistSymbol(symbol, id) {
 
 export function toggleWatchlist(id) {
   return (dispatch, getState) => {
-    const data = _.find(
+    const data = find(
       getState().watchlists,
       watchlist => watchlist.id === id,
     );

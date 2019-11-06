@@ -14,28 +14,20 @@ import { formatDateMonthDay } from '../../utils/helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from './store/actions';
 
-//TODO-EP move to constants
-const ranges = [
-  { label: '1m', range: '1m' },
-  { label: '3m', range: '3m' },
-  { label: '6m', range: '6m' },
-  { label: '1y', range: '1y' },
-];
-
 export function StockChart(props) {
   const symbol = useSelector(({ stock }) => stock.data.symbol);
   const chart = useSelector(({ stock }) => stock.chart.data);
-  const range = useSelector(({ stock }) => stock.chart.range);
+  const chartRange = useSelector(({ stock }) => stock.chart.range);
   const isLoading = useSelector(({ stock }) => stock.chart.isLoading);
-
+  const ranges = Object.keys(Actions.RANGE).map(key => Actions.RANGE[key]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(Actions.getChart(symbol, range));
-  }, [dispatch, range]);
+    dispatch(Actions.getChart(symbol, chartRange));
+  }, [dispatch, chartRange]);
 
-  const handleSelectRange = item => {
-    dispatch(Actions.toggleRange(item.range));
+  const handleSelectRange = range => {
+    dispatch(Actions.toggleRange(range));
   };
 
   const label = <VictoryLabel style={svgStyles.chartLabel} />;
@@ -43,13 +35,13 @@ export function StockChart(props) {
 
   const _renderRangeContainer = () => (
     <Item>
-      {ranges.map((item, index) => (
+      {ranges.map(({ range, label }, index) => (
         <Button
           key={index}
-          bordered={item.range === range}
-          onPress={() => handleSelectRange(item)}
+          bordered={range === chartRange}
+          onPress={() => handleSelectRange(range)}
           style={styles.rangesButton}>
-          <Text style={[styles.rangesLabel]}>{item.label}</Text>
+          <Text style={[styles.rangesLabel]}>{label}</Text>
         </Button>
       ))}
     </Item>
@@ -77,6 +69,8 @@ export function StockChart(props) {
             positive: svgStyles.positive,
             negative: svgStyles.negative,
           }}
+          y="close"
+          x="label"
         />
       </VictoryChart>
     </Item>

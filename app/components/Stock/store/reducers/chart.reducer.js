@@ -2,7 +2,7 @@ import * as Actions from '../actions';
 
 const initialState = {
   data: {},
-  range: Actions.RANGE_1MONTH.range,
+  range: Actions.RANGE.oneMonth.range,
   interval: 1,
   isLoading: true,
   error: null,

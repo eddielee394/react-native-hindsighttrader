@@ -1,7 +1,6 @@
 import Iexcloud from '../iexcloud';
 import faker from 'faker';
 import { load } from '../../utils/storage';
-import _ from 'lodash';
 
 class Api {
   constructor() {

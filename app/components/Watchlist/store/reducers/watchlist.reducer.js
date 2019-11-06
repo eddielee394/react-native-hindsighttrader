@@ -1,5 +1,5 @@
 import * as Actions from '../actions';
-import _ from 'lodash';
+import { has, omit } from 'lodash';
 
 const initialState = {
   data: {},
@@ -23,8 +23,8 @@ const watchlistReducer = (state = initialState, action) => {
     case Actions.ADD_WATCHLIST_SYMBOL:
       const index = state.symbols.findIndex(symbol => symbol === action.symbol);
 
-      const data = _.has(state.data, action.symbol)
-        ? _.omit(state.data, action.symbol)
+      const data = has(state.data, action.symbol)
+        ? omit(state.data, action.symbol)
         : state.data;
 
       return index !== -1
@@ -48,7 +48,7 @@ const watchlistReducer = (state = initialState, action) => {
         symbol => symbol !== action.symbol,
       );
 
-      const filteredData = _.omit(state.data, action.symbol);
+      const filteredData = omit(state.data, action.symbol);
 
       return {
         ...state,

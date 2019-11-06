@@ -15,24 +15,22 @@ export function StockNews(props) {
     dispatch(Actions.getNewsData(symbol));
   }, [dispatch, symbol]);
 
-  return data.map(item => (
+  return data.map(({ image, title, source, timeStamp }) => (
     <View style={styles.cardContainer}>
       <View style={styles.cardItemContainer}>
         <View style={styles.thumbContainer}>
-          <Image source={{ uri: item.image }} style={styles.thumb} />
+          <Image source={{ uri: image }} style={styles.thumb} />
         </View>
         <View style={styles.bodyContainer}>
           <View style={styles.titleContainer}>
             <Text numberOfLines={2} style={{ fontSize: 16 }}>
-              {item.title}
+              {title}
             </Text>
           </View>
           <View style={styles.footerContainer}>
-            <Text style={[styles.authorText, styles.smallText]}>
-              {item.source}
-            </Text>
+            <Text style={[styles.authorText, styles.smallText]}>{source}</Text>
             <Text style={[styles.timeStampText, styles.smallText]} note>
-              {formatTimeFromNow(item.timeStamp)}
+              {formatTimeFromNow(timeStamp)}
             </Text>
           </View>
         </View>

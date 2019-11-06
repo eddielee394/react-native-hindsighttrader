@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Actions as RouteActions } from 'react-native-router-flux';
 import { Animated, StyleSheet } from 'react-native';
-import _ from 'lodash';
+import {includes} from 'lodash';
 import {
   Body,
   Button,
@@ -27,9 +27,11 @@ import theme from '../../theme';
 
 function StockContainer(props) {
   const symbol = useSelector(({ stock }) => stock.data.symbol);
-  const companyInfo = useSelector(({ stock }) => stock.data.companyInfo);
+  const companyName = useSelector(
+    ({ stock }) => stock.data.companyInfo.companyName,
+  );
   const isLoading = useSelector(({ stock }) => stock.isLoading);
-  const watchlist = useSelector(({ watchlist }) => watchlist);
+  const symbols = useSelector(({ watchlist }) => watchlist.symbols);
   const dispatch = useDispatch();
 
   const nativeScroll = new Animated.Value(0);
@@ -43,9 +45,8 @@ function StockContainer(props) {
     return dispatch(watchlistActions.addWatchlistSymbol(symbol));
   };
 
-  const handleWatchlistIconStyles = () => {
-    return _.includes(watchlist.symbols, symbol) && styles.negative;
-  };
+  const handleWatchlistIconStyles = () =>
+    includes(symbols, symbol) && styles.negative;
 
   const handleScrollEvent = Animated.event(
     [{ nativeEvent: { contentOffset: { y: nativeScroll } } }],
@@ -66,14 +67,14 @@ function StockContainer(props) {
         </Left>
         <Body>
           <Title>{symbol}</Title>
-          <Subtitle>{companyInfo.companyName}</Subtitle>
+          <Subtitle>{companyName}</Subtitle>
         </Body>
         <Right>
           <Button transparent onPress={() => handleAddToWatchlist(symbol)}>
             <Icon name="heart" active style={[handleWatchlistIconStyles()]} />
           </Button>
           <Button transparent onPress={() => RouteActions.searchScreen()}>
-            <Icon name="more" />
+            <Icon name="search" />
           </Button>
         </Right>
       </Header>
