@@ -17,12 +17,12 @@ import * as stockActions from '../Stock/store/actions';
 import * as searchActions from './store/actions';
 import * as watchlistActions from '../Watchlist/store/actions';
 import { Actions as RouteActions } from 'react-native-router-flux';
-import _ from 'lodash';
+import { includes } from 'lodash';
 
 function SearchContainer() {
   const [query, setQuery] = useState('');
   const results = useSelector(({ search }) => search.data.results);
-  const watchlist = useSelector(({ watchlist }) => watchlist);
+  const symbols = useSelector(({ watchlist }) => watchlist.symbols);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function SearchContainer() {
   };
 
   const handleSearch = text => {
-    let q = text.trim();
+    const q = text.trim();
 
     setQuery(q);
   };
@@ -49,13 +49,13 @@ function SearchContainer() {
   };
 
   const handleWatchlistIconStyles = symbol => {
-    return _.includes(watchlist.symbols, symbol)
-      ? styles.negative
-      : styles.positive;
+    return includes(symbols, symbol) ? styles.negative : styles.positive;
   };
 
+  const handleHideResults = results.length < 1 || query === '';
+
   const renderWatchlistIcon = symbol => {
-    return _.includes(watchlist.symbols, symbol)
+    return includes(symbols, symbol)
       ? 'md-remove-circle-outline'
       : 'md-add-circle-outline';
   };
@@ -70,21 +70,21 @@ function SearchContainer() {
   };
 
   const _renderListItem = result => {
+    const { symbol, companyName } = result;
+
     return (
-      <ListItem
-        key={result.symbol}
-        onPress={() => handleSelectItem(result.symbol)}>
+      <ListItem key={symbol} onPress={() => handleSelectItem(symbol)}>
         <Left style={styles.leftContainer}>
-          <Text>{result.symbol}</Text>
+          <Text>{symbol}</Text>
         </Left>
         <Body style={styles.bodyContainer}>
-          <Text numberOfLines={2}>{result.companyName}</Text>
+          <Text numberOfLines={2}>{companyName}</Text>
         </Body>
         <View styl={styles.rightContainer}>
-          <TouchableOpacity onPress={() => handleAddToWatchlist(result.symbol)}>
+          <TouchableOpacity onPress={() => handleAddToWatchlist(symbol)}>
             <Icon
-              name={renderWatchlistIcon(result.symbol)}
-              style={[handleWatchlistIconStyles(result.symbol), styles.icon]}
+              name={renderWatchlistIcon(symbol)}
+              style={[handleWatchlistIconStyles(symbol), styles.icon]}
             />
           </TouchableOpacity>
         </View>
@@ -94,14 +94,14 @@ function SearchContainer() {
 
   return (
     <Autocomplete
-      listContainerStyle={{ flex: 0 }}
-      listStyle={styles.listContainer}
+      listContainerStyle={styles.listContainer}
+      listStyle={styles.list}
       autoCapitalize="none"
       autoCorrect={false}
       data={results}
       renderTextInput={_renderInput}
       defaultValue={query}
-      hideResults={results.length < 1 || query === ''}
+      hideResults={handleHideResults}
       onChangeText={handleSearch}
       placeholder="Enter symbol"
       renderItem={_renderListItem}
@@ -113,9 +113,12 @@ function SearchContainer() {
 const styles = StyleSheet.create({
   positive: { color: theme.dark.green },
   negative: { color: theme.dark.red },
-  listContainer: {
+  list: {
     backgroundColor: theme.containerBgColor,
     position: 'relative',
+  },
+  listContainer: {
+    flex: 0,
   },
   icon: {
     fontSize: 36,
