@@ -11,26 +11,26 @@ const symbolsReducer = (state = initialState, action) => {
   switch (action.type) {
     case Actions.GET_SYMBOLS:
       return { ...state, isLoading: true };
- 
+
     case Actions.GET_SYMBOLS_SUCCESS:
       return { ...state, symbols: action.payload, isLoading: false };
- 
+
     case Actions.GET_SYMBOLS_ERROR:
       return { ...state, isLoading: true, error: action.payload };
- 
+
     case Actions.GET_RESULTS:
       let results;
-      if (action.query === '') {
-        results = [];
-      } else {
-        results = state.symbols
-          .filter(d =>
-            d.symbol.toLowerCase().startsWith(action.query.toLowerCase()),
-          )
-          .slice(0, 20);
-      }
+
+      action.query === ''
+        ? (results = [])
+        : (results = state.symbols
+            .filter(d =>
+              d.symbol.toLowerCase().startsWith(action.query.toLowerCase()),
+            )
+            .slice(0, 20));
+
       return { ...state, results: results };
- 
+
     default:
       return state;
   }

@@ -51,9 +51,7 @@ function SearchContainer() {
   const handleWatchlistIconStyles = symbol => {
     return includes(symbols, symbol) ? styles.negative : styles.positive;
   };
-
-  const handleHideResults = results.length < 1 || query === '';
-
+  
   const renderWatchlistIcon = symbol => {
     return includes(symbols, symbol)
       ? 'md-remove-circle-outline'
@@ -80,7 +78,7 @@ function SearchContainer() {
         <Body style={styles.bodyContainer}>
           <Text numberOfLines={2}>{companyName}</Text>
         </Body>
-        <View styl={styles.rightContainer}>
+        <View style={styles.rightContainer}>
           <TouchableOpacity onPress={() => handleAddToWatchlist(symbol)}>
             <Icon
               name={renderWatchlistIcon(symbol)}
@@ -101,7 +99,6 @@ function SearchContainer() {
       data={results}
       renderTextInput={_renderInput}
       defaultValue={query}
-      hideResults={handleHideResults}
       onChangeText={handleSearch}
       placeholder="Enter symbol"
       renderItem={_renderListItem}
