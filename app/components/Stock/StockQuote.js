@@ -94,20 +94,19 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 60,
   },
+  quoteContainer: {
+    flex: 3,
+  },
   quoteIcon: {
     fontSize: theme.dark.noteFontSize,
     marginLeft: 5,
   },
   baContainer: {
-    flex: 0,
-    paddingLeft: 10,
+    flex: 1,
   },
   baPrice: { paddingTop: 10, paddingBottom: 5 },
   baSize: {
     fontSize: 11,
-  },
-  quoteContainer: {
-    flex: 1,
   },
   updateTimestampContainer: {
     flex: 1,
