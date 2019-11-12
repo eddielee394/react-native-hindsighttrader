@@ -1,0 +1,15 @@
+{
+  "createdWith": "3.1.6",
+  "boilerplate": "ignite-andross",
+  "examples": "classic",
+  "navigation": "react-navigation",
+  "askToOverwrite": true,
+  "generators": {
+    "component": "ignite-andross",
+    "container": "ignite-andross",
+    "listview": "ignite-andross",
+    "list": "ignite-andross",
+    "redux": "ignite-andross",
+    "saga": "ignite-andross"
+  }
+}
