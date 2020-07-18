@@ -13,7 +13,7 @@
     "@react-native-community/async-storage": "^1.6.2",
     "apisauce": "^1.1.1",
     "color": "latest",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "native-base": "^2.13.8",
     "native-base-autocomplete": "thg303/native-base-autocomplete",
